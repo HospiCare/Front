@@ -1,18 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserAccount } from '../user-account';
+import { FormControl , FormGroup , ReactiveFormsModule } from '@angular/forms';
+import { AuthentificationService } from '../authentification.service';
 
 @Component({
   selector: 'app-login-box',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl:'login-box.component.html',
   styleUrl: './login-box.component.css'
 })
 export class LoginBoxComponent {
-  private login(){
+  authService : AuthentificationService = inject(AuthentificationService);
+  constructor() {
+    
+  }
+  userLogin : UserAccount ={
+    email: '',
+    password: ''
+  } ;
+  loginForm = new FormGroup({
+    email : new FormControl(''),
+    password : new FormControl(''),
+  });
+   private merge( email : string , password : string) : UserAccount{
+    return { email : email ,
+      password : password }
 
   }
- 
+  
   onSubmit() : void {
-    this.login();
+    console.log("hello");
+    this.authService.authentificationAtempt(
+      this.merge(this.loginForm.value.email ?? '' ,
+        this.loginForm.value.password ?? '') );
    
   }
 
