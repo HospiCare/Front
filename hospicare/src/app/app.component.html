@@ -1,3 +1,24 @@
-<app-navbar></app-navbar>
-<app-hero></app-hero>
-<app-footer></app-footer>
+<div class="relative w-full min-h-screen bg-white">
+    <!-- Background Shape -->
+    <div class="absolute left-0 top-0 w-[65%] h-full bg-blue-50/30 z-0">
+      <div class="absolute right-0 top-0 h-full w-full">
+        <div class="absolute right-[-20%] h-full w-full rounded-l-[70%] bg-white"></div>
+      </div>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="relative z-10">
+      <!-- Navbar -->
+      <app-navbar></app-navbar>
+  
+      <!-- Hero Section -->
+      <app-hero></app-hero>
+  
+      <!-- About Us Section -->
+        <app-about-us></app-about-us>
+    </div>
+  
+    <!-- Footer -->
+    <app-footer></app-footer>
+  </div>
+  
