@@ -1,0 +1,48 @@
+<div class="rounded-lg p-8 my-16 mx-16">
+    <div class="w-full ">
+        <h2 class="text-3xl font-bold text-center text-textblue leading-tight">
+            Because Every Role Deserves The Tools To Make Healthcare Better!        </h2>
+    </div>
+    <!-- Text Section -->
+    <!-- i have 6 boxes 3 left 3 right each box is a compenet called boxrole -->
+    <div class="flex flex-wrap items-start justify-between mt-8">
+        <div class="w-full md:w-1/2 space-y-6">
+          <app-boxrole
+            [title]="'For Doctors'"
+            [description]="'Quickly access patient records, write prescriptions, and update medical histories effortlessly.'"
+            [imageUrl]="'assets/images/doctor.svg'"
+          ></app-boxrole>
+          <app-boxrole
+            [title]="'For Nurses'"
+            [description]="'Log care details, track medications, and collaborate with healthcare teams. Spend less time on paperwork and more time caring for patients.'"
+            [imageUrl]="'assets/images/nurse.svg'"
+          ></app-boxrole>
+          <app-boxrole
+            [title]="'For Lab Technicians'"
+            [description]="'Record test results, generate trend graphs, and ensure data accuracy. Upload results seamlessly and ensure traceability.'"
+            [imageUrl]="'assets/images/lab-technician.svg'"
+          ></app-boxrole>
+        </div>
+        <div class="w-full md:w-1/2 space-y-6">
+          <app-boxrole
+            [title]="'For Pharmacists'"
+            [description]="'Ensure medications are dispensed accurately and traceable. Collaborate seamlessly with doctors through validated prescriptions.'"
+            [imageUrl]="'assets/images/pharmacist.svg'"
+          ></app-boxrole>
+          <app-boxrole
+            [title]="'For Radiologists'"
+            [description]="'Upload imaging results, attach findings, and contribute to comprehensive patient care. Help create a comprehensive record that aids in treatment.'"
+            [imageUrl]="'assets/images/radiologist.svg'"
+          ></app-boxrole>
+          <app-boxrole
+            [title]="'For Patients'"
+            [description]="'Access medical records, request reports, and stay informed about your health anytime. Know your healthcare team is always informed and up-to-date.'"
+            [imageUrl]="'assets/images/patient.svg'"
+          ></app-boxrole>
+        </div>
+      </div>
+      
+
+
+    
+</div>
