@@ -3,10 +3,11 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { HeroComponent } from "./components/hero/hero.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { AboutUsComponent } from "./components/about-us/about-us.component";
+import { MissionComponent } from "./components/mission/mission.component";
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, HeroComponent, FooterComponent, AboutUsComponent],
+  imports: [NavbarComponent, HeroComponent, FooterComponent, AboutUsComponent, MissionComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
