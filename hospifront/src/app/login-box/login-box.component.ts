@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { UserAccount } from '../user-account';
 import { FormControl , FormGroup , ReactiveFormsModule } from '@angular/forms';
 import { AuthentificationService } from '../authentification.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login-box',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterModule],
   templateUrl:'login-box.component.html',
   styleUrl: './login-box.component.css'
 })
@@ -15,16 +16,26 @@ export class LoginBoxComponent {
     
   }
   userLogin : UserAccount ={
-    email: '',
-    password: ''
+    firstname : '',
+    lastname : '',
+    gender : false,
+    date_of_birthe : '',
+    email : '',
+    password : '',
+    phone:'',
   } ;
   loginForm = new FormGroup({
     email : new FormControl(''),
     password : new FormControl(''),
   });
    private merge( email : string , password : string) : UserAccount{
-    return { email : email ,
-      password : password }
+    return { firstname : '',
+      lastname : '',
+      gender : false,
+      date_of_birthe : '',
+      email : email,
+      password : password,
+      phone:'',}
 
   }
   

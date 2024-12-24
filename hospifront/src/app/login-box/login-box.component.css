@@ -113,6 +113,9 @@ label {
   border-bottom-right-radius: 16px;
 }
 
+.helplink{
+  cursor: pointer;
+}
 /* Responsive Design */
 /* @media (max-width: 768px) {
   .login-box {

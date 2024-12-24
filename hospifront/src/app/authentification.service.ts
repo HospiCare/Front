@@ -6,8 +6,13 @@ import { UserAccount } from './user-account';
 })
 export class AuthentificationService {
   protected User : UserAccount = {
-    email: '',
-    password: ''
+    firstname : '',
+    lastname : '',
+    gender : false,
+    date_of_birthe : '',
+    email : '',
+    password : '',
+    phone:'',
   }
  
 

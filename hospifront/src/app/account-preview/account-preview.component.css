@@ -1,0 +1,127 @@
+/* patient-info.component.css */
+.patient-info-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: sans-serif;
+    background-color: #F7FAFC;
+  }
+  
+  .left-panel {
+    max-width: 500px;
+    width: 50%;
+    background-color: #F7FAFC;
+    padding: 20px;
+    border-radius: 11% 0% 0% 11% / 14% 13% 17% 14% ;
+  }
+  .right-panel {
+    max-width: 500px;
+    width: 55%;
+    background-color: #F7FAFC;
+    padding: 20px;
+    border-radius:0% 12% 9% 0% / 38% 13% 17% 31%  ;
+  }
+  
+  .profile {
+    padding-left: 50px;
+  }
+  .grey-line {
+    border: none; /* Removes the default border */
+    height: 1px; /* Sets the thickness */
+    background-color: #d3d3d3; /* Sets the grey color */
+    margin: 20px 0; /* Adds some spacing around the line */
+  }
+  
+  .profile-img {
+    margin-left: 50px;
+    margin-bottom: 5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: #000000;
+    margin-bottom: 10px;
+  }
+  
+  .status {
+    margin-top: 20px;
+  }
+  
+  .status-item {
+    margin: 10px 0;
+  }
+  
+  .contact-info {
+    grid-gap: 2em;
+    display: grid;
+    grid-template-columns: minmax(100px,1fr) , minmax(100px,1fr);
+    grid-template-rows: 1fr ,1fr ;
+    margin-top: 20px;
+  }
+
+  p{
+    margin-top: 2px;
+  }
+  .name{
+    margin-bottom:8px ;
+  }
+  .label{
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+.elm1{
+  
+  grid-row:  1 / 2;
+  grid-column: 1 / 2;
+}
+.elm2{
+  grid-row: 2 /3 ;
+  grid-column: 1/1 ;
+}
+.elm3{
+  grid-row: 1/2 ;
+  grid-column: 2/3;
+}
+.elm4{
+  grid-row:2/3 ;
+  grid-column: 2/3;
+}
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #232323;
+  }
+  
+  input {
+    width: 70%;
+    padding: 10px;
+    color: #718EBF;
+    border: 1px solid #DFEAF2;
+    border-radius: 15px;
+  }
+  
+  .save-button {
+    margin-top: 20px;
+    background-color: #185181;
+    color: #fff;
+    max-width: 190px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
