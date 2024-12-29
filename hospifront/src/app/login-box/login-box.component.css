@@ -8,16 +8,15 @@
 /* Layout Styling */
 .login-box {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
   width: 90%;
   max-width: 1000px;
+  justify-content: center;
   height: 80vh;
   margin: 50px auto;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+ 
 }
 
 /* Form Section */
@@ -104,31 +103,21 @@ label {
 
 /* Image Section */
 #login-img {
-  flex: 1;
-  background-image: url('/assets/loginImg.png'); /* Update this path */
-  background-size: cover;
-  background-position: center;
-  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
+
+}
+#login-imj{
+  height: 80%;
+  width: 80%;
+  border-top-right-radius: 29px;
+  border-bottom-left-radius: 153px;
 }
 
 .helplink{
   cursor: pointer;
 }
-/* Responsive Design */
-/* @media (max-width: 768px) {
-  .login-box {
-    flex-direction: column;
-    height: auto;
-  }
-
-  #login-img {
-    height: 200px;
-    border-radius: 0;
-  }
-
-  .login-form {
-    padding: 20px;
-  }
-} */

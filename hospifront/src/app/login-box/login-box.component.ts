@@ -40,7 +40,6 @@ export class LoginBoxComponent {
   }
   
   onSubmit() : void {
-    console.log("hello");
     this.authService.authentificationAtempt(
       this.merge(this.loginForm.value.email ?? '' ,
         this.loginForm.value.password ?? '') );

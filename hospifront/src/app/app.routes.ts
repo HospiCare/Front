@@ -1,24 +1,40 @@
 import { Routes } from '@angular/router';
 import { LoginBoxComponent } from './login-box/login-box.component';
-import { HelpComponent } from './help/help.component';
-import { AccountPreviewComponent } from './account-preview/account-preview.component';
+import { ContainerPageComponent } from './container-page/container-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { InfDashboardComponent } from './inf-dashboard/inf-dashboard.component';
+import { CreateConsComponent } from './create-cons/create-cons.component';
+
 
  const  routeConfig: Routes = [
     {
         path:'',
+        component : ContainerPageComponent,
+
+    },
+    {
+        path:'login',
         component : LoginBoxComponent,
         title:'login page',
     },
     {
-        path:'help',
-        component : HelpComponent,
-        title : 'Help page',
+        path:'admin-page',
+        component : AdminPageComponent,
+        title: 'creer dpi',
+
     },
     {
-    path:'account-info',
-    component : AccountPreviewComponent,
-    title : 'UserInfo'
+        path:'inf-dashboard',
+        component:InfDashboardComponent,
+        title:'dahsboard',
+    },
+    {
+        path:'create-cons',
+        component:CreateConsComponent,
+        title:'cons'
+
     }
+    
     
 ];
 export default routeConfig;
