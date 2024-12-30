@@ -1,0 +1,107 @@
+<div class="app">
+    <header class="header">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" class="logo-icon">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-6h2v2h-2zm0-8h2v6h-2z" 
+                fill="currentColor"/>
+        </svg>
+      </div>
+  
+      <div class="user-info">
+        <div class="user-details">
+          <div class="user-name">Grine Abderrahmane</div>
+          <div class="user-role">Admin</div>
+        </div>
+        <button class="icon-button">
+          <svg viewBox="0 0 24 24" class="icon">
+            <path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" 
+                  fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="icon-button logout">
+          <svg viewBox="0 0 24 24" class="icon">
+            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" 
+                  fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+  
+    <main class="main">
+      <section class="patient-info">
+        <div class="qr-code">
+          <img src="./assets/Micro_QR_Example.webp" alt="QR Code" />
+          <button class="button secondary" (click)="exporterDPI()">Exporter</button>
+        </div>
+  
+        <div class="details">
+          <div class="detail-row">
+            <span class="label">Nom :</span>
+            <span class="value">{{patient.nom}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Prenom :</span>
+            <span class="value">{{patient.prenom}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">NSS :</span>
+            <span class="value">{{patient.nss}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Date de naissance :</span>
+            <span class="value">{{patient.dateNaissance}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Adresse :</span>
+            <span class="value">{{patient.adresse}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">N tel. :</span>
+            <span class="value">{{patient.tel}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Mutuelle :</span>
+            <span class="value">{{patient.mutuelle}}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Personne à contacter :</span>
+            <span class="value">{{patient.personneContact}}</span>
+          </div>
+        </div>
+      </section>
+  
+      <section class="consultations">
+        <h2>Liste des consultations:</h2>
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date de creation</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (consultation of consultations; track consultation.id) {
+                <tr>
+                  <td>
+                    <div>{{consultation.date}}</div>
+                    <div class="time">{{consultation.time}}</div>
+                  </td>
+                  <td>
+                    <div class="actions">
+                      <button class="icon-button" (click)="voirConsultation(consultation.id)" title="Voir consultation">
+                        <svg viewBox="0 0 24 24" class="icon">
+                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" 
+                                fill="currentColor"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-admin-page',
   template: `
     <div id="container">
-      <div class="button" (click)="navigateTo('inf-dashboard')">
+      <div class="button" (click)="navigateTo('doctor-dash')">
         <img src="./assets/bill.png" alt="bill icon">
         <p class="title"> demandes de facture </p>
       </div>
