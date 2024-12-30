@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-interface Patient {
-  nss: string;
-  name: string;
-  email: string;
-  phone: string;
-  creationDate: string;
-  creationTime: string;
-}
+import { Patient } from '../patient';
 
 @Component({
   selector: 'app-dpi-list',
@@ -83,12 +76,36 @@ export class DPIListComponent implements OnInit {
     // Implement view logic
   }
   
-  addToDPI(nss: string) {
+  addToDPI(patient: Patient) {
+    // Navigate to create-cons with patient data
+    this.router.navigate(['create-cons'], {
+      state: { patient: patient }
+    });
     // Implement add logic
   }
+
+  navigateToPatientDetails(patient: Patient) {
+    // Convert patient data to match the patient-details format
+    const patientDetails = {
+      nom: patient.name.split(' ')[1], // Assuming name is "FirstName LastName"
+      prenom: patient.name.split(' ')[0],
+      nss: patient.nss,
+      dateNaissance: '', // You'll need to add this to your patient interface if available
+      adresse: '', // You'll need to add this to your patient interface if available
+      tel: patient.phone,
+      mutuelle: '', // You'll need to add this to your patient interface if available
+      personneContact: '', // You'll need to add this to your patient interface if available
+    };
+
+    // Navigate to patient-details with NSS in URL and patient data in state
+    this.router.navigate(['patient-dpi', patient.nss], {
+      state: { patient: patientDetails }
+    });
+  }
+
   constructor(private router: Router) {}
   
     navigateTo(route: string) {
       this.router.navigate([route]);
-    }
+}
 }

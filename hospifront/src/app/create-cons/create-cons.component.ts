@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { Patient } from '../patient';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-cons',
   imports: [],
@@ -162,6 +163,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-cons.component.css']
 })
 export class CreateConsComponent {
+    patient: Patient | undefined;
+
+  constructor(private router: Router) {
+    // Get the patient data from router state
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.patient = navigation.extras.state['patient'];
+    }
+  }
+
+  ngOnInit() {
+    if (!this.patient) {
+      // Handle case when no patient data is available
+      this.router.navigate(['/dpi-list']);
+    }
+    console.log(this.patient)
+  }
     selectedRow: number | null = null;
 
   selectRow(index: number) {

@@ -54,13 +54,10 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
 
 
     },
-    {
-
-        path:'patient-dpi',
-        component : PatientDetailsComponent,
-   
-   
-       }
+    { 
+        path: 'patient-dpi/:nss', 
+        component: PatientDetailsComponent 
+      },
     
 ];
 export default routeConfig;

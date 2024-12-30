@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-interface Consultation {
-  id: string;
-  date: string;
-  time: string;
+interface Patient {
+  nom: string;
+  prenom: string;
+  nss: string;
+  dateNaissance: string;
+  adresse: string;
+  tel: string;
+  mutuelle: string;
+  personneContact: string;
 }
 
 @Component({
@@ -13,40 +18,76 @@ interface Consultation {
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit {
-  patient = {
-    nom: 'Doe',
-    prenom: 'John',
-    nss: '187364523412',
-    dateNaissance: '01/01/1990',
-    adresse: '123 Rue Example',
-    tel: '0123456789',
-    mutuelle: 'CNAS',
-    personneContact: 'Jane Doe - 0987654321'
-  };
+  patient: Patient | undefined;
+  nss: string | null = null;
+  consultations: any[] = [];
 
-  consultations: Consultation[] = [
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' },
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' },
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' },
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' },
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' },
-    { id: '87364523', date: '21/12/2022', time: '10:40 PM' }
-  ];
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    // Get the patient data from router state
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.patient = navigation.extras.state['patient'];
+    }
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const nss = params['nss'];
-      // In a real application, you would fetch patient data using this NSS
-    });
+    // Get NSS from URL
+    this.nss = this.route.snapshot.paramMap.get('nss');
+    
+    if (!this.patient && this.nss) {
+      // If we have NSS but no patient data, you could fetch the patient data here
+      // this.patientService.getPatientByNss(this.nss).subscribe(...)
+    } else if (!this.patient && !this.nss) {
+      // If we have neither patient data nor NSS, redirect to list
+      this.router.navigate(['/dpi-list']);
+    }
   }
 
-  exporterDPI(): void {
-    console.log('Exporter DPI');
+  exporterDPI() {
+    // Get the QR code image element
+    const qrCodeImg = document.querySelector('.qr-code img') as HTMLImageElement;
+    
+    if (!qrCodeImg) {
+      console.error('QR code image not found');
+      return;
+    }
+
+    // Create a temporary anchor element
+    const downloadLink = document.createElement('a');
+    
+    // Set the download filename using patient's info
+    const fileName = `qr-code-${this.patient?.nom}-${this.patient?.prenom}-${this.patient?.nss}.png`;
+    
+    // If the image is from a real URL (not placeholder)
+    if (!qrCodeImg.src.includes('placeholder')) {
+      downloadLink.href = qrCodeImg.src;
+    } else {
+      // For placeholder images or canvas-generated QR codes
+      // Create a canvas to handle the image data
+      const canvas = document.createElement('canvas');
+      canvas.width = qrCodeImg.width;
+      canvas.height = qrCodeImg.height;
+      
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(qrCodeImg, 0, 0);
+        downloadLink.href = canvas.toDataURL('image/png');
+      }
+    }
+    
+    // Set download attributes
+    downloadLink.download = fileName;
+    
+    // Trigger the download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   }
 
-  voirConsultation(id: string): void {
-    console.log('Voir consultation:', id);
+  voirConsultation(id: string) {
+    // Implement consultation view functionality
   }
 }
