@@ -27,7 +27,6 @@ import { RouterModule } from '@angular/router';
 })
 export class ContainerPageComponent implements OnInit {
   ngOnInit(): void {
-    alert('hello');
   }
   
 

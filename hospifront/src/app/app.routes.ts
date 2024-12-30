@@ -4,6 +4,8 @@ import { ContainerPageComponent } from './container-page/container-page.componen
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { InfDashboardComponent } from './inf-dashboard/inf-dashboard.component';
 import { CreateConsComponent } from './create-cons/create-cons.component';
+import { SoinWindowComponent } from './soin-window/soin-window.component';
+import { VoirConsComponent } from './voir-cons/voir-cons.component';
 
 
  const  routeConfig: Routes = [
@@ -32,6 +34,15 @@ import { CreateConsComponent } from './create-cons/create-cons.component';
         path:'create-cons',
         component:CreateConsComponent,
         title:'cons'
+
+    },
+    {
+        path:'soin-window',
+        component:SoinWindowComponent,
+
+    },
+    {path :'voir-cons',
+        component: VoirConsComponent,
 
     }
     

@@ -1,0 +1,51 @@
+<div class="popup-overlay" [class.visible]="isVisible">
+  <div class="popup-container">
+    <div class="popup-content">
+      <h2 class="popup-title">
+        {{ bilanType === 'biologique' ? 'Bilan Biologique' : 'Bilan Radiologique' }}:
+      </h2>
+
+      @if (bilanType === 'biologique') {
+        <div class="bilan-content">
+          <h3>Les analyses d'urines:</h3>
+          <div class="analysis-table">
+            <div class="table-header">
+              <div class="header-cell">Bilan</div>
+              <div class="header-cell">Résultat</div>
+            </div>
+            <div class="table-content">
+              @for (test of tests; track test.name) {
+                <div class="table-row">
+                  <div class="cell">{{test.name}}</div>
+                  <div class="cell">{{test.value}}</div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Reserved space for graph -->
+          <div class="graph-container">
+            <img src="./assets/al78Nj6-pokemon-wallpaper-1920x1080.jpg?height=300&width=480" alt="Graph placeholder" class="graph-image">
+          </div>
+        </div>
+      }
+
+      @if (bilanType === 'radiologique') {
+        <div class="bilan-content">
+          <h3>Radio:</h3>
+          <div class="image-container">
+            <img src="./assets/al78Nj6-pokemon-wallpaper-1920x1080.jpg?height=300&width=480" alt="Radiological scan" class="scan-image">
+          </div>
+          <div class="report-text">
+            L'examen radiologique ne montre aucune anomalie significative. Les structures osseuses 
+            sont bien alignées et de densité normale. Aucun signe de fracture ou de lésion n'est visible.
+          </div>
+        </div>
+      }
+
+      <div class="popup-footer">
+        <button class="cancel-button" (click)="onClose()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
