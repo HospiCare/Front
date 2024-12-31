@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
 import { Patient } from '../patient';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Medicament } from '../medicament';
+import { BilanBio } from '../bilan-bio';
+import { BilanRadio } from '../bilan-radio';
+import { Ordonnance } from '../ordonnance';
+import { Consultation } from '../consultation';
+import { DPIListComponent } from '../dpi-list/dpi-list.component';
+
 @Component({
   selector: 'app-create-cons',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   template: `
-    <!-- ... keep header section the same ... -->
-
     <main class="main">
         <h1 class="page-title">Creation de la consultation:</h1>
         
@@ -16,17 +24,42 @@ import { Router } from '@angular/router';
                 <div class="card">
                     <div class="date-section">
                         <label>Date:</label>
-                        <input type="text" value="21/09/2004" readonly class="date-input">
+                        <input type="text" [value]="currentDate" readonly class="date-input">
                     </div>
                 </div>
 
                 <div class="card">
                     <h2>Ajouter Ordonnance:</h2>
                     <div class="ordonnance-form">
-                        <input type="text" placeholder="médicament" class="input">
-                        <input type="text" placeholder="Dose" class="input">
-                        <input type="text" placeholder="Durée" class="input">
-                        <button class="button">Ajouter</button>
+                        <input 
+                            type="text" 
+                            placeholder="médicament" 
+                            class="input"
+                            [(ngModel)]="nouveauMedicament.nom"
+                            #nomInput="ngModel"
+                            required>
+                        <input 
+                            type="number" 
+                            placeholder="Dose" 
+                            class="input"
+                            [(ngModel)]="nouveauMedicament.dose"
+                            #doseInput="ngModel"
+                            min="1"
+                            required>
+                        <input 
+                            type="number" 
+                            placeholder="Durée" 
+                            class="input"
+                            [(ngModel)]="nouveauMedicament.duree"
+                            #dureeInput="ngModel"
+                            min="1"
+                            required>
+                        <button 
+                            class="button"
+                            (click)="ajouterMedicament()"
+                            [disabled]="!nomInput.valid || !doseInput.valid || !dureeInput.valid || nouveauMedicament.dose <= 0 || nouveauMedicament.duree <= 0">
+                            Ajouter
+                        </button>
                     </div>
 
                     <table class="table">
@@ -38,35 +71,26 @@ import { Router } from '@angular/router';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr 
-                                [class.selected]="selectedRow === 0"
-                                (click)="selectRow(0)"
-                            >
-                                <td>example 1</td>
-                                <td>5 mg</td>
-                                <td>2 jours</td>
-                            </tr>
-                            <tr 
-                                [class.selected]="selectedRow === 1"
-                                (click)="selectRow(1)"
-                            >
-                                <td>example 1</td>
-                                <td>5 mg</td>
-                                <td>2 jours</td>
-                            </tr>
-                            <tr 
-                                [class.selected]="selectedRow === 2"
-                                (click)="selectRow(2)"
-                            >
-                                <td>example 1</td>
-                                <td>5 mg</td>
-                                <td>2 jours</td>
-                            </tr>
+                            @for (medicament of medicaments; track medicament.nom; let i = $index) {
+                                <tr 
+                                    [class.selected]="selectedRow === i"
+                                    (click)="selectRow(i)"
+                                >
+                                    <td>{{medicament.nom}}</td>
+                                    <td>{{medicament.dose}}</td>
+                                    <td>{{medicament.duree}}</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
 
                     <div class="delete-button-container">
-                        <button class="delete-button">delete</button>
+                        <button 
+                            class="delete-button"
+                            [disabled]="selectedRow === null"
+                            (click)="supprimerMedicament()">
+                            Supprimer
+                        </button>
                     </div>
 
                     <div class="infirmier-section">
@@ -82,23 +106,29 @@ import { Router } from '@angular/router';
                     <h2>Bilan Biologique:</h2>
                     <div class="radio-grid">
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Bilan Sanguin'"
+                                   [(ngModel)]="selectedBilanBioType"
+                                   (change)="onBilanBioChange()">
                             <span>Bilan Sanguin</span>
                         </label>
+                       
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
-                            <span>item 4</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Les analyses d\\'urines'"
+                                   [(ngModel)]="selectedBilanBioType"
+                                   (change)="onBilanBioChange()">
                             <span>Les analyses d'urines</span>
                         </label>
+                       
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
-                            <span>item 5</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Les frottis'"
+                                   [(ngModel)]="selectedBilanBioType"
+                                   (change)="onBilanBioChange()">
                             <span>Les frottis</span>
                         </label>
                     </div>
@@ -117,23 +147,43 @@ import { Router } from '@angular/router';
                     <h2>Bilan Radiologique:</h2>
                     <div class="radio-grid">
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Radiographie'"
+                                   [(ngModel)]="selectedBilanRadioType"
+                                   (change)="onBilanRadioChange()">
                             <span>Radiographie</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Scanner'"
+                                   [(ngModel)]="selectedBilanRadioType"
+                                   (change)="onBilanRadioChange()">
                             <span>Scanner</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Mammographie'"
+                                   [(ngModel)]="selectedBilanRadioType"
+                                   (change)="onBilanRadioChange()">
                             <span>Mammographie</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'IRM'"
+                                   [(ngModel)]="selectedBilanRadioType"
+                                   (change)="onBilanRadioChange()">
                             <span>IRM</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="bilan">
+                            <input type="radio" 
+                                   name="bilan" 
+                                   [value]="'Echographie'"
+                                   [(ngModel)]="selectedBilanRadioType"
+                                   (change)="onBilanRadioChange()">
                             <span>Echographie</span>
                         </label>
                     </div>
@@ -149,12 +199,13 @@ import { Router } from '@angular/router';
                     <h2>Résumé:</h2>
                     <textarea 
                         class="resume-textarea"
-                        placeholder="Rédigez votre résumé sur la consultation ici...">
+                        placeholder="Rédigez votre résumé sur la consultation ici..."
+                        [(ngModel)]="resume">
                     </textarea>
                 </div>
 
                 <div class="actions">
-                    <button class="button">Enregistrer</button>
+                    <button class="button" (click)="enregistrerConsultation()">Enregistrer</button>
                 </div>
             </div>
         </div>
@@ -164,26 +215,124 @@ import { Router } from '@angular/router';
 })
 export class CreateConsComponent {
     patient: Patient | undefined;
-
-  constructor(private router: Router) {
-    // Get the patient data from router state
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      this.patient = navigation.extras.state['patient'];
-    }
-  }
-
-  ngOnInit() {
-    if (!this.patient) {
-      // Handle case when no patient data is available
-      this.router.navigate(['/dpi-list']);
-    }
-    console.log(this.patient)
-  }
+    consultations : Consultation[] | undefined;
+    currentDate: string;
+    medicaments: Medicament[] = [];
+    nouveauMedicament: Medicament = {
+        nom: '',
+        dose: 0,
+        duree: 0
+    };
     selectedRow: number | null = null;
+    selectedBilanBioType: string | null = null;
+    selectedBilanRadioType: string | null = null;
+    bilanBio: BilanBio | null = null;
+    bilanRadio: BilanRadio | null = null;
+    resume: string = ''; // Add this property
+    dpilist:DPIListComponent | undefined
+    id:number | undefined
 
-  selectRow(index: number) {
-    this.selectedRow = this.selectedRow === index ? null : index;
-  }
+    constructor(private router: Router) {
+        const navigation = this.router.getCurrentNavigation();
+        if (navigation?.extras.state) {
+            this.patient = navigation.extras.state['patient'];
+            this.consultations = navigation.extras.state['consultations'];
+            this.id=navigation.extras.state['id'];
 
+        }
+        this.currentDate = this.formatDate(new Date());
+    }
+
+    private formatDate(date: Date): string {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    ajouterMedicament() {
+        if (this.nouveauMedicament.nom && 
+            this.nouveauMedicament.dose > 0 && 
+            this.nouveauMedicament.duree > 0) {
+        this.medicaments.push({...this.nouveauMedicament});
+        this.nouveauMedicament = {
+            nom: '',
+            dose: 0,
+            duree: 0,
+        };
+        this.selectedRow = null;
+    }
+}
+
+    supprimerMedicament() {
+        if (this.selectedRow !== null) {
+            this.medicaments.splice(this.selectedRow, 1);
+            this.selectedRow = null;
+        }
+    }
+
+    selectRow(index: number) {
+        this.selectedRow = this.selectedRow === index ? null : index;
+    }
+
+    ngOnInit() {
+        if (!this.patient) {
+            this.router.navigate(['/dpi-list']);
+        }
+        console.log(this.patient);
+    }
+
+    onBilanBioChange() {
+        if (this.selectedBilanBioType) {
+            this.bilanBio = {
+                type: this.selectedBilanBioType,
+                img: '',
+                tests:[],
+
+            };
+            this.bilanRadio=null;
+            console.log('Bilan Biologique créé:', this.bilanBio);
+        }
+    }
+
+    onBilanRadioChange() {
+        if (this.selectedBilanRadioType) {
+            this.bilanRadio = {
+                type: this.selectedBilanRadioType,
+                compteRendu:'',
+                img:'',
+            };
+            this.bilanBio=null;
+            console.log('Bilan Radiologique créé:', this.bilanRadio);
+        }
+    }
+
+    enregistrerConsultation() {
+        // Create the ordonnance object
+        const ordonnance: Ordonnance = {
+            medicaments: [...this.medicaments],
+            valide : false,
+        };
+
+        // Create the consultation object
+        const consultation: Consultation = {
+            date: this.currentDate,
+            ordonnance: ordonnance,
+            bilanBio: this.bilanBio,
+            bilanRadio: this.bilanRadio,
+            resume: this.resume
+        };
+
+        
+        this.consultations?.push(consultation)
+        this.router.navigate(['doctor-dash'], {
+            state: { 
+                consultations: this.consultations,
+                id:this.id
+              }
+          });
+        
+        // Here you would typically send this to your backend service
+        // For now, we'll just log it to the console
+    }
 }

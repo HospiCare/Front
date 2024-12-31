@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Patient } from '../patient';
+import { Consultation } from '../consultation';
 
-interface Patient {
-  nom: string;
-  prenom: string;
-  nss: string;
-  dateNaissance: string;
-  adresse: string;
-  tel: string;
-  mutuelle: string;
-  personneContact: string;
-}
+
 
 @Component({
   selector: 'app-patient-details',
@@ -18,9 +11,9 @@ interface Patient {
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit {
-  patient: Patient | undefined;
+  patient: any | undefined;
   nss: string | null = null;
-  consultations: any[] = [];
+  consultations: Consultation[] = []; // Property to hold consultations
 
   constructor(
     private router: Router,
@@ -30,6 +23,7 @@ export class PatientDetailsComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.patient = navigation.extras.state['patient'];
+      this.consultations = navigation.extras.state['consultations'] || []; // Get consultations
     }
   }
 
@@ -39,7 +33,7 @@ export class PatientDetailsComponent implements OnInit {
     
     if (!this.patient && this.nss) {
       // If we have NSS but no patient data, you could fetch the patient data here
-      // this.patientService.getPatientByNss(this.nss).subscribe(...)
+      // this.patientService.getPatientByNss(this.nss).subscribe(...);
     } else if (!this.patient && !this.nss) {
       // If we have neither patient data nor NSS, redirect to list
       this.router.navigate(['/dpi-list']);
@@ -59,7 +53,7 @@ export class PatientDetailsComponent implements OnInit {
     const downloadLink = document.createElement('a');
     
     // Set the download filename using patient's info
-    const fileName = `qr-code-${this.patient?.nom}-${this.patient?.prenom}-${this.patient?.nss}.png`;
+    const fileName = `qr-code-${this.patient?.name}-${this.patient?.nss}.png`;
     
     // If the image is from a real URL (not placeholder)
     if (!qrCodeImg.src.includes('placeholder')) {
@@ -87,7 +81,13 @@ export class PatientDetailsComponent implements OnInit {
     document.body.removeChild(downloadLink);
   }
 
-  voirConsultation(id: string) {
+  voirConsultation(consultation: Consultation) {
+    this.router.navigate(['voir-cons'], {
+      state: { 
+          consultation: consultation,
+          
+        }
+    });
     // Implement consultation view functionality
   }
 }
