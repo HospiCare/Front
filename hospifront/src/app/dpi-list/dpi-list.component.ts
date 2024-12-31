@@ -92,6 +92,10 @@ export class DPIListComponent implements OnInit {
   createDPI(): void {
     // Implement create logic
     console.log('Create DPI clicked');
+
+
+
+    
   }
 
   viewDPI(nss: string) {
