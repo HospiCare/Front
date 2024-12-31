@@ -1,6 +1,22 @@
 import { Routes } from '@angular/router';
 import { CreateDpiComponent } from './create-dpi/create-dpi.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
-export const routes: Routes = [
-    { path: 'create-dpi', component: CreateDpiComponent },
+const  routeConfig: Routes = [
+    {
+        path:'',
+        component : LandingPageComponent,
+        title:'landing page',
+
+    },
+
+    {
+
+        path:'create-dpi',
+        component : CreateDpiComponent,
+        title:'create dpi',
+    },
+    
+    
 ];
+export default routeConfig;
