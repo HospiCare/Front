@@ -1,14 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-interface Ordonnance {
-  name: string;
-  status: string;
-  medications?: Array<{
-    name: string;
-    dose: string;
-    duration: string;
-  }>;
-}
+import { Ordonnance } from '../ordonnance';
 
 @Component({
   selector: 'app-ordonnance-details-popup',
@@ -17,7 +8,7 @@ interface Ordonnance {
 })
 export class OrdonnanceDetailsPopupComponent {
   @Input() isVisible: boolean = false;
-  @Input() ordonnance: Ordonnance | null = null;
+  @Input() ordonnance?: Ordonnance | null;
   @Output() close = new EventEmitter<void>();
 
   onClose() {

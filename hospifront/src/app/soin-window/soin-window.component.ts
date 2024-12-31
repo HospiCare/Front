@@ -1,59 +1,32 @@
 import { Component } from '@angular/core';
+import { Ordonnance } from '../ordonnance';
 import { OrdonnanceDetailsPopupComponent } from '../ordonnance-details-popup/ordonnance-details-popup.component';
-
-interface Ordonnance {
-  name: string;
-  status: string;
-  medications?: Array<{
-    name: string;
-    dose: string;
-    duration: string;
-  }>;
-}
-
-interface Soin {
-  name: string;
-  observation: string;
-}
+import { Soins } from '../soins';
 
 @Component({
   selector: 'app-soin-window',
-  standalone: true,
-  imports: [OrdonnanceDetailsPopupComponent],
   templateUrl: './soin-window.component.html',
-  styleUrl: './soin-window.component.css'
+  styleUrls: ['./soin-window.component.css'],
+  imports: [OrdonnanceDetailsPopupComponent]
 })
 export class SoinWindowComponent {
   isOrdonnancePopupVisible = false;
   selectedOrdonnance: Ordonnance | null = null;
-  newSoinName: string = '';
-  newSoinObservation: string = '';
+  
+  // Initialize array of Soins
+  soins: Soins[] = [];
 
-  ordonnances: Ordonnance[] = [
-    { 
-      name: 'Ordonnance1', 
-      status: 'validée',
-      medications: [
-        { name: 'Medicament 1', dose: '500mg', duration: '7 jours' },
-        { name: 'Medicament 2', dose: '250mg', duration: '5 jours' }
-      ]
-    },
-    { 
-      name: 'Ordonnance2', 
-      status: 'en attente',
-      medications: [
-        { name: 'Medicament 3', dose: '1g', duration: '3 jours' }
-      ]
-    }
-  ];
+  // Example ordonnance structure
+  ordonnance: Ordonnance = {
+    medicaments: [
+      { nom: 'Medicament 1', dose: 500, duree: 7 },
+      { nom: 'Medicament 2', dose: 250, duree: 5 }
+    ],
+    valide: true
+  };
 
-  soins: Soin[] = [
-    { name: 'example 1', observation: 'Ce TP la est un TP d\'un module qui s\'appelle IGL.' },
-    { name: 'example 1', observation: 'Ce TP la est un TP d\'un module qui s\'appelle IGL.' }
-  ];
-
-  showOrdonnanceDetails(ordonnance: Ordonnance) {
-    this.selectedOrdonnance = ordonnance;
+  showOrdonnanceDetails() {
+    this.selectedOrdonnance = this.ordonnance;
     this.isOrdonnancePopupVisible = true;
   }
 
@@ -64,10 +37,14 @@ export class SoinWindowComponent {
 
   addSoin(soinInput: HTMLInputElement, observationInput: HTMLInputElement) {
     if (soinInput.value.trim() && observationInput.value.trim()) {
-      this.soins.push({
+      // Create new Soins object
+      const newSoin: Soins = {
         name: soinInput.value.trim(),
         observation: observationInput.value.trim()
-      });
+      };
+      
+      // Add to soins array
+      this.soins.push(newSoin);
       
       // Clear inputs after adding
       soinInput.value = '';

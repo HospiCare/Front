@@ -1,6 +1,6 @@
 import { Medicament } from "./medicament";
 
 export interface Ordonnance {
-    medicaments: Medicament[];
+    medicaments: Array<Medicament>;
     valide:boolean,
 }

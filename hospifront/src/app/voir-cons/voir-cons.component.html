@@ -3,7 +3,7 @@
 
   <div class="date-section">
     <span class="label">Date:</span>
-    <span class="date-value">21/09/2004</span>
+    <span class="date-value">{{this.consultation?.date}}</span>
   </div>
 
   <div class="section">
@@ -18,8 +18,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>Ordonnance1</td>
-          <td>validée</td>
+          <td>Ordonnance</td>
+          <td>{{affiche_validitie()}}</td>
           <td>
             <button class="icon-button" (click)="showOrdonnanceDetails()">
               <svg viewBox="0 0 24 24" class="eye-icon">
@@ -34,15 +34,16 @@
 
   <!-- Update the ordonnance popup binding -->
   <app-ordonnance-details-popup
-    [isVisible]="isOrdonnancePopupVisible"
-    (close)="hideOrdonnanceDetails()">
-  </app-ordonnance-details-popup>
+  [isVisible]="isOrdonnancePopupVisible"
+  [ordonnance]="this.consultation?.ordonnance"
+  (close)="hideOrdonnanceDetails()">
+</app-ordonnance-details-popup>
 
   <!-- Add the bilan popup component -->
   <app-bilan-details-popup
     [isVisible]="isBilanPopupVisible"
     [bilanType]="selectedBilanType"
-    [bilanData]="selectedBilanType === 'biologique' ? bilanBiologique : bilanRadiologique"
+    [bilanData]="selectedBilanType === 'biologique' ? consultation?.bilanBio : consultation?.bilanRadio"
     (close)="hideBilanDetails()">
   </app-bilan-details-popup>
 
@@ -59,7 +60,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{bilanBiologique.nom}}</td>
+          <td>{{this.consultation?.bilanBio?.type}}</td>
           <td>
             <button class="icon-button" (click)="showBilanDetails('biologique')">
               <svg viewBox="0 0 24 24" class="eye-icon">
@@ -83,9 +84,8 @@
         </tr>
       </thead>
       <tbody>
-       
         <tr>
-          <td>{{bilanRadiologique.nom}}</td>
+          <td>{{this.consultation?.bilanRadio?.type}}</td>
           <td>
             <button class="icon-button" (click)="showBilanDetails('radiologique')">
               <svg viewBox="0 0 24 24" class="eye-icon">
@@ -94,7 +94,6 @@
             </button>
           </td>
         </tr>
-      
       </tbody>
     </table>
   </div> 
@@ -103,7 +102,7 @@
   <div class="section">
     <h2 class="section-title">Résumé:</h2>
     <div class="resume-box">
-      Lors de la consultation, le patient a présenté des symptômes de [préciser les symptômes, par exemple : douleurs abdominales, toux persistante, fatigue]. Après un examen clinique et un interrogatoire approfondi, il a été décidé de réaliser [préciser les examens, par exemple : une prise de sang, une radiographie, une échographie] afin d'affiner le diagnostic. Les premiers résultats suggèrent [préciser les hypothèses diagnostiques, par exemple : une infection virale, une pathologie gastro-intestinale]. Un traitement symptomatique a été prescrit [préciser le traitement, par exemple : des analgésiques, des antibiotiques]. Le patient a été conseillé de revenir pour un suivi dans [préciser la durée, par exemple : une semaine] ou plus tôt si les symptômes s'aggravent.
+      {{this.consultation?.resume}}
     </div>
   </div>
 </div>
