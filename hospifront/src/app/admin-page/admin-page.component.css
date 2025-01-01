@@ -1,51 +1,121 @@
 :host {
   display: flex;
-
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  flex-direction: row;
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
 }
-.button{
-  height: 70% ;
-  width: 25%;
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+  max-width: 1400px;
+  padding: 20px;
+}
+
+.button {
+  height: 600px;
+  width: 100%;
+  max-width: 400px;
   background-color: #0B65B1;
- border-radius:12px ;
- display: flex;
- justify-content: center;
- align-items: center;
- cursor: pointer;
- transition: transform 0.2s ease, background-color 0.3s ease;
- flex-direction: column;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  flex-direction: column;
+  padding: 40px;
+  gap: 30px;
 }
-.title{
+
+.button img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+.title {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 40px  ;
+  font-size: clamp(24px, 5vw, 48px);
   font-weight: 500;
   color: aliceblue;
+  text-align: center;
+  word-wrap: break-word;
 }
+
 .button.grey {
   background-color: darkgrey;
 }
-#container{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
 
-}
 .button:hover {
   transform: scale(1.05);
   background-color: darkgrey;
-
 }
+
 .button.grey:hover {
   background-color: #0B65B1;
 }
 
 .button:active {
   transform: scale(0.95);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .button {
+    height: 500px;
+    max-width: 350px;
+  }
+  
+  #container {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  #container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .button {
+    height: 300px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    height: 250px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  :host {
+    padding: 10px;
+  }
+
+  #container {
+    padding: 10px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 320px) {
+  .button {
+    height: 200px;
+  }
+
+  .button img {
+    width: 60px;
+  }
 }

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginBoxComponent } from './login-box/login-box.component';
-import { ContainerPageComponent } from './container-page/container-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { InfDashboardComponent } from './inf-dashboard/inf-dashboard.component';
 import { CreateConsComponent } from './create-cons/create-cons.component';
@@ -13,11 +12,6 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
  const  routeConfig: Routes = [
     {
         path:'',
-        component : ContainerPageComponent,
-
-    },
-    {
-        path:'login',
         component : LoginBoxComponent,
         title:'login page',
     },
