@@ -1,47 +1,70 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { LoginBoxComponent } from "./login-box/login-box.component";
-import { PatientDetailsComponent } from "./patient-details/patient-details.component";
-import { AdminPageComponent } from "./admin-page/admin-page.component";
-import { InfDashboardComponent } from "./inf-dashboard/inf-dashboard.component";
-import { DPIListComponent } from "./dpi-list/dpi-list.component";
 import { DPI } from './dpi';
 import { Consultation } from './consultation';
+import { state } from '@angular/animations';
+import { LoginRoutingService } from './login-routing.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent, PatientDetailsComponent, AdminPageComponent, InfDashboardComponent, DPIListComponent],
+  imports: [RouterModule, LoginBoxComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   isLogin: boolean = false;
-  userRole: number = 0;
+  userRole: string = '';
   currentRoute: string = '';
   title = 'RiscoFront';
-
+  loginroute : LoginRoutingService = inject(LoginRoutingService);
+  constructor(private router: Router) {}
+  
   choice?:number = undefined;
   consultions? : Consultation[] = undefined;
-  DPI? : DPI[] = undefined;
+  DPI1? : DPI[] = undefined;
   patientdpi? : DPI = undefined;
  userName? : string = undefined;
   handleLoginSuccess(event: {username : string , role : number , Data : DPI | DPI[] | Consultation[]}) {
     this.userName = event.username;
-    this.userRole = event.role;
     this.choice = event.role;
     switch(this.choice){
       case 0 :
-      this.patientdpi = event.Data as DPI
+      this.patientdpi = event.Data as DPI    //patient
+      this.userRole = 'Patient'
+      this.loginroute.setData(this.patientdpi);
+      this.router.navigate(['patient-dpi/:nss' , this.patientdpi]);
       break;
-
+     case 1 :                                     
+this.consultions = event.Data as Consultation[]; // admin
+this.userRole ='Admin'
+this.router.navigate(['admin-page']);
+      break;
+     case 2 : 
+this.consultions = event.Data as Consultation[] //loaboratin
+this.userRole = 'Laboratien'
+this.router.navigate(['patient-dpi/:nss']);
+      break;
+     case 3 : 
+this.consultions = event.Data as Consultation[] //radiologue
+this.userRole = 'Radiologue'
+this.router.navigate(['patient-dpi/:nss']);
+      break;
+     case 4 : 
+this.consultions = event.Data as Consultation[] //infermier
+this.userRole = 'infermier'
+this.loginroute.setData(this.consultions);
+this.router.navigate(['inf-dashboard',this.consultions]);
+      break;
       case 5 :
-      this.DPI = event.Data as DPI[]
-        break;
-
-     default : 
-this.consultions = event.Data as Consultation[]
-      break;
+        this.DPI1 = event.Data as DPI[];     //doctor
+        this.userRole = 'Docteur'
+        this.router.navigate(['doctor-dash']);
+        this.loginroute.setData(this.DPI1);
+        this.loginroute.setIsDocteur();
+        console.log(this.DPI1);
+          break;
     }
     
     

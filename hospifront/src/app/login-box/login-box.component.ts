@@ -3,7 +3,6 @@ import { UserAccount } from '../user-account';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthentificationService } from '../authentification.service';
 import { RouterModule } from '@angular/router';
-import { Patient } from '../patient';
 import { Consultation } from '../consultation';
 import { DPI } from '../dpi';
 
@@ -22,7 +21,17 @@ export class LoginBoxComponent {
     email: new FormControl(''),
     password: new FormControl(''),
   });
+dpis : DPI[] = [{patient:{
+  nss: '4234234',
+  name: 'hmida',
+  email: 'rwrw@gmail.dz',
+  phone: '05033212',
+  creationDate: '09/2132',
+  creationTime: '10:23',
 
+},
+  consultations:null
+}]
   onSubmit(): void {
     this.authService.authentificationAtempt(
       this.merge(this.loginForm.value.email ?? '',
@@ -32,6 +41,7 @@ export class LoginBoxComponent {
     // Simulate role-based authentication response
     // In a real app, this would come from your auth service
     
+    this.loginSuccess.emit({username:'rookie',role:5,Data:this.dpis});
   }
 
   

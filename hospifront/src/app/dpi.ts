@@ -4,5 +4,5 @@ import { Consultation } from "./consultation";
 
 export interface DPI {
     patient : Patient,
-    consultations:  Consultation[],
+    consultations:  Consultation[] | null,
 }

@@ -27,33 +27,7 @@
   </header>
 
 <body class="content">
-  @switch (choice) {
-    @case (0) {
-      <app-patient-details></app-patient-details>
-
-    }
-    @case (1) {
-      <app-admin-page></app-admin-page>
-
-    }
-    @case (2) {
-      <p>this is laboratin</p>
-
-    }
-    @case (3) {
-      <p>this is laboratin</p>
-
-    }
-    @case (4) {
-      <app-inf-dashboard></app-inf-dashboard>
-
-    }
-    @case (5) {
-      <app-dpi-list></app-dpi-list>
-
-    }
-  }
-    
+<router-outlet></router-outlet>    
 </body>
 } @else {
   <app-login-box (loginSuccess)="handleLoginSuccess($event)"></app-login-box>
