@@ -1,6 +1,7 @@
 import { BilanBio } from "./bilan-bio";
 import { BilanRadio } from "./bilan-radio";
 import { Ordonnance } from "./ordonnance";
+import { Soins } from "./soins";
 
 export interface Consultation {
     date: string;
@@ -8,5 +9,6 @@ export interface Consultation {
     bilanBio: BilanBio | null;
     bilanRadio: BilanRadio | null;
     resume: string;
+    soins : Soins[] |null;
     
 }

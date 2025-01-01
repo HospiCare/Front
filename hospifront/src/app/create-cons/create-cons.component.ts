@@ -9,6 +9,7 @@ import { BilanRadio } from '../bilan-radio';
 import { Ordonnance } from '../ordonnance';
 import { Consultation } from '../consultation';
 import { DPIListComponent } from '../dpi-list/dpi-list.component';
+import { Soins } from '../soins';
 
 @Component({
   selector: 'app-create-cons',
@@ -229,6 +230,7 @@ export class CreateConsComponent {
     bilanBio: BilanBio | null = null;
     bilanRadio: BilanRadio | null = null;
     resume: string = ''; // Add this property
+    Soins: Soins[] | null = null;
     dpilist:DPIListComponent | undefined
     id:number | undefined
 
@@ -320,7 +322,8 @@ export class CreateConsComponent {
             ordonnance: ordonnance,
             bilanBio: this.bilanBio,
             bilanRadio: this.bilanRadio,
-            resume: this.resume
+            resume: this.resume,
+            soins: this.Soins
         };
 
         

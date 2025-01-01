@@ -24,7 +24,7 @@ export class AuthentificationService {
     console.log(username.email);
 
   }
-  getAnswer(  answer :boolean,  username : string , role : number , Data : Patient | DPI | Consultation[] ) : boolean| {answer: boolean ,username : string , role : string , Data : Patient | DPI | Consultation[] , route : string} {
+  getAnswer(  answer :boolean,  username : string , role : number , Data : DPI | DPI[] | Consultation[] ) : boolean| {answer: boolean ,username : string , role : number , Data : DPI | DPI[] | Consultation[]} {
     
 
     if(answer){
@@ -32,30 +32,30 @@ export class AuthentificationService {
       switch(role){
         
         case 0:
-         return  { answer:true , username , role:'patient' , Data , route:'patient-dpi/:nss'}
+         return  { answer:true , username , role:0 , Data}
         //this is a patient
        
         case 1:
-         return  { answer:true , username , role:'admin' , Data , route:'admin-page'}
+         return  { answer:true , username , role:1 , Data }
           //this is a admin
          
           case 2:
             
-         return  { answer:true , username , role:'laboratin' , Data,route:''}
+         return  { answer:true , username , role:2 , Data}
             //this is a laboratin
            
             case 3:
               
-         return  { answer:true , username , role:'radiologue' , Data,route:''}
+         return  { answer:true , username , role:3 , Data}
               //this a radiologue
           
               case 4:
                 
-         return  { answer:true , username , role:'infermier' , Data,route:'inf-dashboard'}
+         return  { answer:true , username , role:4 , Data}
          //this is an infermier
               case 5:
                 
-         return  { answer:true , username , role:'Doctor' , Data,route:'doctor-dash'}
+         return  { answer:true , username , role:5 , Data}
                 //this is a doctor
             
                 default:
