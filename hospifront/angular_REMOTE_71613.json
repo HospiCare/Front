@@ -27,8 +27,8 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/output.css"
+              "src/styles.css"
+            
             ],
             "scripts": []
           },
@@ -86,8 +86,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/output.css"
+              "src/styles.css"
             ],
             "scripts": []
           }

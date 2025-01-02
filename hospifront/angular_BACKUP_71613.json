@@ -27,8 +27,14 @@
               }
             ],
             "styles": [
+<<<<<<< HEAD
               "src/styles.css",
               "src/output.css"
+
+=======
+              "src/styles.css"
+            
+>>>>>>> Login
             ],
             "scripts": []
           },
