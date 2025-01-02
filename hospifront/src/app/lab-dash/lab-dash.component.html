@@ -3,7 +3,7 @@
 
     <main class="main">
         <div class="card">
-            <h1 class="card-title">Patients qui ont besoin des soins:</h1>
+            <h1 class="card-title">Patients avec bilans biologique:</h1>
             
             <div class="table-container">
                 <table class="table">
@@ -24,7 +24,7 @@
                                 <td>{{patient.doctorName}}</td>
                                 <td>{{patient.date}}</td>
                                 <td>
-                                    <button class="edit-button" (click)="openSoinModal()">
+                                    <button class="edit-button" (click)="openbilanModal()">
                                         <svg viewBox="0 0 24 24" class="icon">
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
                                                   stroke="currentColor" fill="none" stroke-width="2"/>
@@ -47,14 +47,14 @@
     </main>
 
     <!-- Modal Overlay -->
-    <div id="soinModal" class="modal-overlay">
+    <div id="bilanModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="card-title">Soins de Nom de patient</h2>
-                <button class="close-button" (click)="closeSoinModal()">×</button>
+                <h2 class="card-title">Les analyses</h2>
+                <button class="close-button" (click)="closebilanModal()">×</button>
             </div>
             <div class="modal-body">
-                <app-soin-window></app-soin-window> // hna tsh9 asm lpatient o l'ordonnance ta3o o les soins li kano 3ndo mn9bel
+                <app-bilan-change-popup></app-bilan-change-popup> // hna tsh9 asm lpatient o l'ordonnance ta3o o les soins li kano 3ndo mn9bel
             </div>
         </div>
     </div>
