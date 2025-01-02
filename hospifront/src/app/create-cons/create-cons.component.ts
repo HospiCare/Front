@@ -8,7 +8,7 @@ import { BilanBio } from '../bilan-bio';
 import { BilanRadio } from '../bilan-radio';
 import { Ordonnance } from '../ordonnance';
 import { Consultation } from '../consultation';
-import { DPIListComponent } from '../dpi-list/dpi-list.component';
+import { DPIListComponent } from '../dpi/dpi-list/dpi-list.component';
 import { Soins } from '../soins';
 
 @Component({

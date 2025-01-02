@@ -5,7 +5,7 @@ import { InfDashboardComponent } from './inf-dashboard/inf-dashboard.component';
 import { CreateConsComponent } from './create-cons/create-cons.component';
 import { SoinWindowComponent } from './soin-window/soin-window.component';
 import { VoirConsComponent } from './voir-cons/voir-cons.component';
-import { DPIListComponent } from './dpi-list/dpi-list.component';
+import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 
