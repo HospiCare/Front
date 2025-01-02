@@ -1,0 +1,69 @@
+<div class="popup-overlay" [class.visible]="isVisible">
+  <div class="popup-container">
+    <div class="popup-content">
+      <h2 class="popup-title">
+        {{ bilanType === 'biologique' ? 'Bilan Biologique' : 'Bilan Radiologique' }}:
+      </h2>
+
+      <!-- Biological Bilan -->
+      <ng-container *ngIf="bilanType === 'biologique'">
+        <div class="bilan-content">
+          <h3>{{ bilanData?.type }}:</h3>
+          <div class="analysis-table">
+            <div class="table-header">
+              <div class="header-cell">Bilan</div>
+              <div class="header-cell">Résultat</div>
+            </div>
+            <div class="table-content">
+              <div
+                class="table-row"
+                *ngFor="let test of editableTestResults; let i = index"
+              >
+                <div class="cell">Test {{ i + 1 }}</div>
+                <div class="cell">
+                  <input
+                    type="text"
+                    [(ngModel)]="editableTestResults[i]"
+                    class="input-field"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reserved space for graph -->
+          <div class="graph-container">
+            <img
+              [src]="bilanData?.img"
+              alt="Graph placeholder"
+              class="graph-image"
+            />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Radiological Bilan -->
+      <ng-container *ngIf="bilanType === 'radiologique'">
+        <div class="bilan-content">
+          <h3>Radio: {{ bilanData?.type }}</h3>
+          <div class="image-container">
+            <img
+              [src]="bilanData?.img"
+              alt="Radiological scan"
+              class="scan-image"
+            />
+          </div>
+          <div class="report-text">
+            {{ this.CompteRendu }}
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Footer with Cancel and Save Buttons -->
+      <div class="popup-footer">
+        <button class="cancel-button" (click)="onClose()">Annuler</button>
+        <button class="save-button" (click)="onSave()">Enregister</button>
+      </div>
+    </div>
+  </div>
+</div>
