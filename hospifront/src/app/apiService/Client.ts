@@ -3,7 +3,7 @@ import { UserAccount } from '../user-account';
 
 
 export class ApiServiceClient {
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'http://127.0.0.1:8000';
   public auth_token: string = '';
   public user_data: UserAccount = {} as UserAccount;
 

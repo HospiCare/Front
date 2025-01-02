@@ -5,10 +5,14 @@ import { Consultation } from '../../consultation';
 import { DPI } from '../../dpi';
 import { LoginRoutingService } from '../../login-routing.service';
 import { DpiService } from '../../dpi/dpi.service'; 
+import { RouterModule } from '@angular/router';
+import { formToJSON } from 'axios';
+
 
 @Component({
   selector: 'app-dpi-list',
   templateUrl: './dpi-list.component.html',
+  imports : [RouterModule],
   styleUrls: ['./dpi-list.component.css']
 })
 export class DPIListComponent implements OnInit {
@@ -20,6 +24,7 @@ export class DPIListComponent implements OnInit {
   consultations: Consultation[] = [];
   filteredPatients: Patient[] = [];
   realdpi: DPI[] | undefined;
+  selectedFile: File | null = null
 
   constructor(
     private router: Router,
@@ -34,22 +39,30 @@ export class DPIListComponent implements OnInit {
         this.dpis = data; // Stocke la réponse dans dpis
   
         // Crée un tableau de dossiers en extrayant chaque "dpi" de chaque objet
+        /*
         this.dossiers = data.map(dpiObj => {
           const dpi = dpiObj.dpi;  // Accéder à l'objet "dpi" dans chaque élément de data
           const patient = dpiObj.patient;  // Accéder à l'objet "patient" dans chaque élément de data
-  
+          console.log(patient)
           return {
-            nss: patient?.nss || 'Inconnu',
-            name: patient?.name || 'Inconnu',
-            email: patient?.email || '',
-            phone: dpi?.phone || '',  // Accès à dpi.phone
-            creationDate: dpi?.creationDate?.split(' ')[0] || 'Non disponible',  // Accès à dpi.creationDate
-            creationTime: dpi?.creationDate?.split(' ')[1] || ''  // Accès à dpi.creationDate
+            nss: patient?.nss ,
+            name: patient?.name ,
+            email: patient?.email ,
+            phone: dpi?.phone ,  // Accès à dpi.phone
+            creationDate: dpi?.creationDate?.split(' ')[0] ,  // Accès à dpi.creationDate
+            creationTime: dpi?.creationDate?.split(' ')[1]   // Accès à dpi.creationDate
           };
-        });
-  
+        });*/
+
+        for (let index = 0; index < data.length; index++) {
+          const element = data[index].patient;
+          this.patients.push(element)
+        }
+        console.log("Patients:")
+        console.log(this.patients)
         // Initialisez la liste filtrée pour la recherche
-        this.filteredPatients = [...this.dossiers];  // Utilisez 'dossiers' pour la recherche
+        this.filteredPatients = [...this.patients];  // Utilisez 'dossiers' pour la recherche
+         console.log(this.filteredPatients)
       },
       (error) => {
         console.error('Erreur lors de la récupération des DPI :', error);
@@ -80,14 +93,59 @@ export class DPIListComponent implements OnInit {
     );
   }
 
+
+
+  triggerFileInput(): void {
+    const fileInput = document.querySelector<HTMLInputElement>('#fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  // Handle file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      console.log('File selected:', file);
+
+      // You can now process the file, e.g., upload it to a server
+      this.uploadFile(file);
+    }
+  }
+
+  // Mock function to handle file upload
+  uploadFile(file: File): void {
+    // Replace this with actual upload logic
+    console.log(`Uploading file: ${file.name}`);
+    // Example: Use an HTTP service to send the file to the server
+    // this.httpClient.post('your-server-endpoint', file).subscribe(...);
+    
+
+
+
+
+
+  }
+ 
   searchByQR(): void {
-    // Implement QR code search logic
-    console.log('QR code search clicked');
+
+
+  
+
+
+
+
+
+
   }
 
   createDPI(): void {
     // Implement create logic
-    console.log('Create DPI clicked');
+    this.router.navigate(['creer-dpi'], {
+      
+    });
+    
   }
 
   viewDPI(nss: string) {

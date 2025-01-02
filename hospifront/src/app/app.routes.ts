@@ -15,7 +15,7 @@ import { labDashboardComponent } from './lab-dash/lab-dash.component';
     {
         path:'creer-dpi',
         component : CreateDpiComponent,
-        title:'creer-dpi',
+        title:'dpi',
     },
     {
         path:'',
@@ -42,7 +42,7 @@ import { labDashboardComponent } from './lab-dash/lab-dash.component';
     {
         path:'create-cons',
         component:CreateConsComponent,
-        title:'cons'
+        
 
     },
     {
