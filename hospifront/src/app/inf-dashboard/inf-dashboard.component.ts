@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SoinWindowComponent } from '../soin-window/soin-window.component';
+import { LoginRoutingService } from '../login-routing.service';
+import { Consultation } from '../consultation';
 
 interface PatientSoin {
   id: string;
@@ -16,6 +18,12 @@ interface PatientSoin {
   styleUrl: './inf-dashboard.component.css'
 })
 export class InfDashboardComponent {
+  loginservice : LoginRoutingService = inject(LoginRoutingService);
+  dashboard? : Consultation[] 
+  constructor() {
+    this.dashboard = this.loginservice.getDAta() as Consultation []
+    
+  }
   patients: PatientSoin[] = [
     {
       id: '9028721',

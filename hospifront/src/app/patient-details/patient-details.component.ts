@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Patient } from '../patient';
 import { Consultation } from '../consultation';
+import { LoginRoutingService } from '../login-routing.service';
+import { DPI } from '../dpi';
 
 
 
@@ -11,20 +13,27 @@ import { Consultation } from '../consultation';
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit {
+  logindpi? : DPI 
   patient: any | undefined;
   nss: string | null = null;
-  consultations: Consultation[] = []; // Property to hold consultations
-
+  consultations?: Consultation[] | null = []; // Property to hold consultations
+  loginservice : LoginRoutingService = inject(LoginRoutingService);
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) {
     // Get the patient data from router state
+    if(this.loginservice.getDAta()){
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.patient = navigation.extras.state['patient'];
       this.consultations = navigation.extras.state['consultations'] || []; // Get consultations
+    }}else{
+    this.logindpi = this.loginservice.getDAta() as DPI
+    this.patient = this.logindpi?.patient
+    this.consultations = this.logindpi?.consultations;
     }
+
   }
 
   ngOnInit() {

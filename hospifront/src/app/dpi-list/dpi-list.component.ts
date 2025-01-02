@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Patient } from '../patient';
 import { Consultation } from '../consultation';
 import { DPI } from '../dpi';
+import { LoginRoutingService } from '../login-routing.service';
 @Component({
   selector: 'app-dpi-list',
   templateUrl: './dpi-list.component.html',
@@ -12,57 +13,26 @@ export class DPIListComponent implements OnInit {
   patients: Patient[]=[];
   dpis:DPI[]=[]
   id:number=0
+  loginservice : LoginRoutingService = inject(LoginRoutingService);
   consultations:Consultation[]=[]
   filteredPatients: Patient[]= [];
+  realdpi: DPI[] | undefined;
+  
   
 
   ngOnInit() {
-
+    
     // In a real application, this would come from a service
-    this.patients = [
-      {
-        nss: '187364523412',
-        name: 'Brooklyn Simmons',
-        email: 'brooklyns@mail.com',
-        phone: '(603) 555-0123',
-        creationDate: '21/12/2022',
-        creationTime: '10:40 PM',
-        
-      },
-      {
-        nss: '193874563789',
-        name: 'Kristin Watson',
-        email: 'kristinw@mail.com',
-        phone: '(219) 555-0114',
-        creationDate: '22/12/2022',
-        creationTime: '05:20 PM',
-        
-      },
-      {
-        nss: '223847569321',
-        name: 'Jacob Jones',
-        email: 'jacobj@mail.com',
-        phone: '(319) 555-0115',
-        creationDate: '23/12/2022',
-        creationTime: '12:40 PM',
-       
-      }
-    ];
-    for (let i = 0; i < this.patients.length; i++) {
-      this.dpis.push({
-        patient:this.patients[i],
-        consultations:[]
-
-
-
-
-      })
-      
+    for (let index = 0; index < this.realdpi!.length; index++) {
+       this.patients.push(this.realdpi![index].patient);  
     }
+
+  this.dpis = this.realdpi!;
     this.dpis[this.id].consultations=this.consultations
     
     
     this.filteredPatients = [...this.patients];
+    
   }
 
   searchDPIs(event: Event): void {
@@ -135,15 +105,15 @@ export class DPIListComponent implements OnInit {
     });
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router , private route : ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.consultations = navigation.extras.state['consultations'];
       this.id=navigation.extras.state['id'];
 
   }
-
-
+  this.realdpi = this.loginservice.getDAta() as DPI[];
+  console.log(this.realdpi);
   }
   
     navigateTo(route: string) {
