@@ -1,0 +1,33 @@
+@if (isVisible) {
+  <div class="popup-overlay" [class.visible]="isVisible">
+    <div class="popup-container">
+      <div class="popup-content">
+        <h2 class="popup-title">Affichage de l'Ordonnance:</h2>
+        
+        <div class="medication-table">
+          <div class="table-header">
+            <div class="header-cell">Médicaments</div>
+            <div class="header-cell">Dose</div>
+            <div class="header-cell">Durée</div>
+          </div>
+          
+          <div class="table-body">
+            @if (ordonnance) {
+              @for (med of ordonnance.medicaments; track med.nom) {
+                <div class="table-row">
+                  <div class="table-cell">{{med.nom}}</div>
+                  <div class="table-cell">{{med.dose}}</div>
+                  <div class="table-cell">{{med.duree}}</div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+
+        <div class="popup-footer">
+          <button class="cancel-button" (click)="onClose()">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

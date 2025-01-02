@@ -1,0 +1,133 @@
+
+.consultation-display {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 24px;
+}
+
+.date-section {
+  margin-bottom: 24px;
+}
+
+.label {
+  color: rgba(0, 0, 0, 0.87);
+  margin-right: 8px;
+}
+
+.date-value {
+  background: #EEEEEE;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.table th {
+  text-align: left;
+  padding: 8px;
+  background: #EEEEEE;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: normal;
+}
+
+.table td {
+  padding: 8px;
+  color: rgba(0, 0, 0, 0.87);
+  vertical-align: middle; /* Add vertical alignment */
+}
+
+/* Empty state styles */
+.table tbody:empty::after {
+  content: "Aucun bilan disponible";
+  display: table-row;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+  font-style: italic;
+}
+
+.table tbody:empty::after td {
+  display: table-cell;
+  padding: 16px;
+}
+
+/* Single entry styles */
+.table tbody tr:only-child {
+  background-color: transparent;
+}
+
+.table tbody tr:only-child td {
+  border-bottom: none;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  margin: 0 auto; /* Center in table cell */
+  width: 32px; /* Fixed width for consistency */
+  height: 32px; /* Fixed height for consistency */
+  border-radius: 4px; /* Optional: adds a subtle rounded corner */
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.04); /* Optional: adds hover effect */
+}
+
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  fill: rgba(0, 0, 0, 0.54);
+}
+
+.resume-box {
+  background: #EEEEEE;
+  padding: 16px;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Hide section if no content */
+.section:empty {
+  display: none;
+}
+
+/* Optional: Add a message when no bilans are present */
+.no-bilans-message {
+  color: rgba(0, 0, 0, 0.54);
+  font-style: italic;
+  text-align: center;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}

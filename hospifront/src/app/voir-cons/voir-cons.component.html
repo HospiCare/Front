@@ -1,0 +1,108 @@
+<div class="consultation-display">
+  <h1 class="title">Affichage de la consultation:</h1>
+
+  <div class="date-section">
+    <span class="label">Date:</span>
+    <span class="date-value">{{this.consultation?.date}}</span>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Ordonnances:</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ordonnance</td>
+          <td>{{affiche_validitie()}}</td>
+          <td>
+            <button class="icon-button" (click)="showOrdonnanceDetails()">
+              <svg viewBox="0 0 24 24" class="eye-icon">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Update the ordonnance popup binding -->
+  <app-ordonnance-details-popup
+  [isVisible]="isOrdonnancePopupVisible"
+  [ordonnance]="this.consultation?.ordonnance"
+  (close)="hideOrdonnanceDetails()">
+</app-ordonnance-details-popup>
+
+  <!-- Add the bilan popup component -->
+  <app-bilan-details-popup
+    [isVisible]="isBilanPopupVisible"
+    [bilanType]="selectedBilanType"
+    [bilanData]="selectedBilanType === 'biologique' ? consultation?.bilanBio : consultation?.bilanRadio"
+    (close)="hideBilanDetails()">
+  </app-bilan-details-popup>
+
+  <!-- For Bilans Biologiques -->
+  @if (bilanBiologique) {
+  <div class="section">
+    <h2 class="section-title">Bilans Biologiques:</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Bilan</th>
+          <th>Résultat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{this.consultation?.bilanBio?.type}}</td>
+          <td>
+            <button class="icon-button" (click)="showBilanDetails('biologique')">
+              <svg viewBox="0 0 24 24" class="eye-icon">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+}
+  @if (bilanRadiologique) {
+     <div class="section">
+    <h2 class="section-title">Bilans Radiologiques:</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Bilan</th>
+          <th>Résultat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{this.consultation?.bilanRadio?.type}}</td>
+          <td>
+            <button class="icon-button" (click)="showBilanDetails('radiologique')">
+              <svg viewBox="0 0 24 24" class="eye-icon">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+}
+
+  <div class="section">
+    <h2 class="section-title">Résumé:</h2>
+    <div class="resume-box">
+      {{this.consultation?.resume}}
+    </div>
+  </div>
+</div>
