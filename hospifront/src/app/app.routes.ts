@@ -14,7 +14,7 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
     {
         path:'creer-dpi',
         component : CreateDpiComponent,
-        title:'creer-dpi',
+        title:'dpi',
     },
     {
         path:'',
@@ -35,7 +35,7 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
     {
         path:'create-cons',
         component:CreateConsComponent,
-        title:'cons'
+        
 
     },
     {

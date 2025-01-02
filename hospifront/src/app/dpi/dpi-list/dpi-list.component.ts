@@ -5,10 +5,13 @@ import { Consultation } from '../../consultation';
 import { DPI } from '../../dpi';
 import { LoginRoutingService } from '../../login-routing.service';
 import { DpiService } from '../../dpi/dpi.service'; 
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-dpi-list',
   templateUrl: './dpi-list.component.html',
+  imports : [RouterModule],
   styleUrls: ['./dpi-list.component.css']
 })
 export class DPIListComponent implements OnInit {
@@ -20,6 +23,7 @@ export class DPIListComponent implements OnInit {
   consultations: Consultation[] = [];
   filteredPatients: Patient[] = [];
   realdpi: DPI[] | undefined;
+  selectedFile: File | null = null
 
   constructor(
     private router: Router,
@@ -80,14 +84,59 @@ export class DPIListComponent implements OnInit {
     );
   }
 
+
+
+  triggerFileInput(): void {
+    const fileInput = document.querySelector<HTMLInputElement>('#fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  // Handle file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      console.log('File selected:', file);
+
+      // You can now process the file, e.g., upload it to a server
+      this.uploadFile(file);
+    }
+  }
+
+  // Mock function to handle file upload
+  uploadFile(file: File): void {
+    // Replace this with actual upload logic
+    console.log(`Uploading file: ${file.name}`);
+    // Example: Use an HTTP service to send the file to the server
+    // this.httpClient.post('your-server-endpoint', file).subscribe(...);
+    
+
+
+
+
+
+  }
+ 
   searchByQR(): void {
-    // Implement QR code search logic
-    console.log('QR code search clicked');
+
+
+  
+
+
+
+
+
+
   }
 
   createDPI(): void {
     // Implement create logic
-    console.log('Create DPI clicked');
+    this.router.navigate(['creer-dpi'], {
+      
+    });
+    
   }
 
   viewDPI(nss: string) {
