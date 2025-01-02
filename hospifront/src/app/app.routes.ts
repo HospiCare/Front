@@ -6,10 +6,18 @@ import { CreateConsComponent } from './create-cons/create-cons.component';
 import { SoinWindowComponent } from './soin-window/soin-window.component';
 import { VoirConsComponent } from './voir-cons/voir-cons.component';
 import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
+import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 
  const  routeConfig: Routes = [
+    {
+        path:'creer-dpi',
+        component : CreateDpiComponent,
+        title:'creer-dpi',
+
+
+    },
     {
         path:'',
         component : LoginBoxComponent,
@@ -18,7 +26,7 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
     {
         path:'admin-page',
         component : AdminPageComponent,
-        title: 'creer dpi',
+        title: 'admin',
 
     },
     {
