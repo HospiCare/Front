@@ -8,42 +8,40 @@
       <!-- Biological Bilan -->
       <ng-container *ngIf="bilanType === 'biologique'">
         <div class="bilan-content">
-          <h3>{{ bilanData?.type }}:</h3>
+          <h3>{{ bilanData?.type }}les analyses :</h3>
           <div class="analysis-table">
             <div class="table-header">
               <div class="header-cell">Bilan</div>
               <div class="header-cell">Résultat</div>
             </div>
             <div class="table-content">
-              <div
-                class="table-row"
-                *ngFor="let test of editableTestResults; let i = index"
-              >
-                <div class="cell">Test {{ i + 1 }}</div>
+              <div class="table-row" *ngFor="let test of editableTestResults; let i = index">
+                <div class="cell">{{ test.name }}</div> <!-- Displaying test name -->
                 <div class="cell">
                   <input
                     type="text"
-                    [(ngModel)]="editableTestResults[i]"
+                    [(ngModel)]="test.result"  
                     class="input-field"
+                    placeholder="Enter result"
                   />
-                </div>
+                </div> <!-- Editable result -->
               </div>
             </div>
           </div>
 
-          <!-- Reserved space for graph -->
+          <!-- Reserved space for graph
           <div class="graph-container">
             <img
               [src]="bilanData?.img"
               alt="Graph placeholder"
               class="graph-image"
             />
-          </div>
+          </div> -->
         </div>
       </ng-container>
 
       <!-- Radiological Bilan -->
-      <ng-container *ngIf="bilanType === 'radiologique'">
+      <!-- <ng-container *ngIf="bilanType === 'radiologique'">
         <div class="bilan-content">
           <h3>Radio: {{ bilanData?.type }}</h3>
           <div class="image-container">
@@ -57,12 +55,12 @@
             {{ this.CompteRendu }}
           </div>
         </div>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Footer with Cancel and Save Buttons -->
       <div class="popup-footer">
         <button class="cancel-button" (click)="onClose()">Annuler</button>
-        <button class="save-button" (click)="onSave()">Enregister</button>
+        <!-- <button class="save-button" (click)="onSave()">Enregister</button> -->
       </div>
     </div>
   </div>
