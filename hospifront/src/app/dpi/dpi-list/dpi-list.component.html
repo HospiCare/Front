@@ -1,4 +1,5 @@
 <div class="app">
+  
   <!-- ... header content remains the same ... -->
 
   <main class="main">
@@ -6,7 +7,7 @@
       <div class="card-header">
         <h1 class="card-title">Liste des DPIs</h1>
         <button class="button primary" (click)="createDPI()">
-          Créer DPI
+          Creer DPI
           <svg viewBox="0 0 24 24" class="icon">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor" />
           </svg>
@@ -21,41 +22,47 @@
               <th>NSS</th>
               <th>Email</th>
               <th>Tel.</th>
-              <th>Date de création</th>
+              <th>Date de creation</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Boucle sur les patients filtrés -->
-            <tr *ngFor="let patient of filteredPatients; trackBy: trackByNss">
-              <td>{{ patient.name }}</td>
-              <td>{{ patient.nss }}</td>
-              <td>{{ patient.email }}</td>
-              <td>{{ patient.phone }}</td>
+            @for (patient of filteredPatients; track patient.nss) {
+            <tr>
+              <td>{{patient.name}}</td>
+              <td>{{patient.nss}}</td>
+              <td>{{patient.email}}</td>
+              <td>{{patient.phone}}</td>
               <td>
-                <div>{{ patient.creationDate }}</div>
-                <div class="time">{{ patient.creationTime }}</div>
+                <div>{{patient.creationDate}}</div>
+                <div class="time">{{patient.creationTime}}</div>
               </td>
+              <!-- ... previous code remains the same ... -->
               <td>
                 <div class="actions">
                   <button class="icon-button" (click)="navigateToPatientDetails(patient)" title="Voir DPI">
                     <svg viewBox="0 0 24 24" class="icon">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="currentColor"></path>
+                      <path
+                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill="currentColor" />
                     </svg>
                   </button>
                   <button class="icon-button" (click)="addToDPI(patient)" title="Ajouter au DPI">
                     <svg viewBox="0 0 24 24" class="icon">
-                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"></path>
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor" />
                     </svg>
                   </button>
                 </div>
               </td>
+              <!-- ... rest of the code remains the same ... -->
+              }
+              @empty {
+            <tr>
+              <td colspan="6" class="empty-state">
+                Aucun DPI trouvé
+              </td>
             </tr>
-
-            <!-- Affiche un message lorsque aucun patient n'est trouvé -->
-            <tr *ngIf="filteredPatients.length === 0">
-              <td colspan="6" class="empty-state">Aucun DPI trouvé</td>
-            </tr>
+            }
           </tbody>
         </table>
       </div>
