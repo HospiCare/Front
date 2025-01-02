@@ -136,4 +136,5 @@ export class DPIListComponent implements OnInit {
   trackByNss(index: number, patient: Patient): string {
     return patient.nss;  // Utilisez l'NSS comme identifiant unique
   }
+  
 }
