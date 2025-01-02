@@ -13,6 +13,7 @@ import { DpiService } from '../../dpi/dpi.service';
 })
 export class DPIListComponent implements OnInit {
   patients: Patient[] = [];
+  dossiers: any[] = [];
   dpis: DPI[] = [];
   id: number = 0;
   loginservice: LoginRoutingService = inject(LoginRoutingService);
@@ -23,23 +24,42 @@ export class DPIListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dpiService: DpiService, // Injection du service DpiService
+    private dpiService: DpiService, 
   ) { }
-
   ngOnInit() {
-    console.log ('helllooo')
-    // Appel au service pour récupérer la liste des DPI
     this.dpiService.getDPIList().subscribe(
-      (data: DPI[]) => {
-        this.dpis = data; // Stocker les DPI reçus dans la variable dpis
-        this.patients = data.map(dpi => dpi.patient); // Extraire les patients
-        this.filteredPatients = [...this.patients]; // Initialiser la liste filtrée
+      (data: any[]) => {
+        console.log('DPI récupérés :', data); // Déboguer la structure de la réponse
+  
+        this.dpis = data; // Stocke la réponse dans dpis
+  
+        // Crée un tableau de dossiers en extrayant chaque "dpi" de chaque objet
+        this.dossiers = data.map(dpiObj => {
+          const dpi = dpiObj.dpi;  // Accéder à l'objet "dpi" dans chaque élément de data
+          const patient = dpiObj.patient;  // Accéder à l'objet "patient" dans chaque élément de data
+  
+          return {
+            nss: patient?.nss || 'Inconnu',
+            name: patient?.name || 'Inconnu',
+            email: patient?.email || '',
+            phone: dpi?.phone || '',  // Accès à dpi.phone
+            creationDate: dpi?.creationDate?.split(' ')[0] || 'Non disponible',  // Accès à dpi.creationDate
+            creationTime: dpi?.creationDate?.split(' ')[1] || ''  // Accès à dpi.creationDate
+          };
+        });
+  
+        // Initialisez la liste filtrée pour la recherche
+        this.filteredPatients = [...this.dossiers];  // Utilisez 'dossiers' pour la recherche
       },
       (error) => {
         console.error('Erreur lors de la récupération des DPI :', error);
       }
     );
   }
+  
+  
+  
+  
 
   searchDPIs(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();

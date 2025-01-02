@@ -21,11 +21,11 @@ export class DpiService {
     return new Observable<DPI[]>((observer) => {
       axios.get<DPI[]>(this.baseUrl, { headers })
         .then((response) => {
-          observer.next(response.data);  // Passer les données obtenues
-          observer.complete();  // Terminer l'observable
+          observer.next(response.data);  
+          observer.complete(); 
         })
         .catch((error) => {
-          observer.error(error);  // Gérer les erreurs
+          observer.error(error);  
         });
     });
   }
