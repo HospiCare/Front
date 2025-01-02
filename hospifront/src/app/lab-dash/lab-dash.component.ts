@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { SoinWindowComponent } from '../soin-window/soin-window.component';
 import { LoginRoutingService } from '../login-routing.service';
 import { Consultation } from '../consultation';
+import { BilanChangePopupComponent } from '../bilan-change-popup/bilan-change-popup.component';
 
 interface PatientSoin {
   id: string;
@@ -13,7 +13,7 @@ interface PatientSoin {
 @Component({
   selector: 'app-lab-dash',
   standalone: true,
-  imports: [SoinWindowComponent],
+  imports: [BilanChangePopupComponent],
   templateUrl: './lab-dash.component.html',
   styleUrl: './lab-dash.component.css'
 })
@@ -51,13 +51,13 @@ export class labDashboardComponent {
     }
   ];
 
-  openSoinModal() {
-    document.getElementById('soinModal')?.classList.add('active');
+  openbilanModal() {
+    document.getElementById('bilanModal')?.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
-  closeSoinModal() {
-    document.getElementById('soinModal')?.classList.remove('active');
+  closebilanModal() {
+    document.getElementById('bilanModal')?.classList.remove('active');
     document.body.style.overflow = 'auto';
   }
 }

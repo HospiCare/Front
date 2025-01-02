@@ -8,6 +8,7 @@ import { VoirConsComponent } from './voir-cons/voir-cons.component';
 import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
 import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import { labDashboardComponent } from './lab-dash/lab-dash.component';
 
 
  const  routeConfig: Routes = [
@@ -32,6 +33,12 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
         component:InfDashboardComponent,
         title:'dahsboard',
     },
+    {
+        path:'lab-dashboard',
+        component:labDashboardComponent,
+        title:'dahsboard',
+    },
+
     {
         path:'create-cons',
         component:CreateConsComponent,
