@@ -14,6 +14,33 @@
         </button>
       </div>
 
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <div class="search-input-container">
+          <svg class="search-icon" viewBox="0 0 24 24">
+            <path d="M10.5 2C5.81 2 2 5.81 2 10.5S5.81 19 10.5 19c2.21 0 4.21-.79 5.75-2.1l4.25 4.25 1.5-1.5-4.25-4.25C18.21 14.71 19 12.71 19 10.5 19 5.81 15.19 2 10.5 2zM10.5 17C7.46 17 5 14.54 5 10.5S7.46 4 10.5 4 16 6.46 16 10.5 13.54 17 10.5 17z" fill="rgba(128, 128, 128, 1)"/>
+          </svg>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            class="search-input" 
+            (input)="searchDPIs($event)">
+          <button class="qr-button" (click)="searchByQR()">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M6 2h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm0 2v12h12V4H6zm3 3h6v6H9V7zm0 8h6v2H9v-2z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <div class="layout-icons">
+          <svg class="layout-icon" viewBox="0 0 24 24">
+            <path d="M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z" fill="rgba(128, 128, 128, 1)"/>
+          </svg>
+          <svg class="layout-icon" viewBox="0 0 24 24">
+            <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z" fill="rgba(128, 128, 128, 1)"/>
+          </svg>
+        </div>
+      </div>
+
       <div class="table-container">
         <table class="table">
           <thead>
@@ -37,7 +64,6 @@
                 <div>{{patient.creationDate}}</div>
                 <div class="time">{{patient.creationTime}}</div>
               </td>
-              <!-- ... previous code remains the same ... -->
               <td>
                 <div class="actions">
                   <button class="icon-button" (click)="navigateToPatientDetails(patient)" title="Voir DPI">
@@ -54,7 +80,6 @@
                   </button>
                 </div>
               </td>
-              <!-- ... rest of the code remains the same ... -->
               }
               @empty {
             <tr>

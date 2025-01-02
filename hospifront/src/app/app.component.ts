@@ -8,10 +8,11 @@ import { state } from '@angular/animations';
 import { LoginRoutingService } from './login-routing.service';
 import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { apiClient } from './apiService/Client';
+import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent,CreateDpiComponent],
+  imports: [RouterModule, LoginBoxComponent,CreateDpiComponent,DPIListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
