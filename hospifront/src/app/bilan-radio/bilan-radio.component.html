@@ -1,0 +1,25 @@
+<div class="popup-overlay" [class.visible]="isVisible">
+    <div class="popup-container">
+      <div class="popup-content">
+        <h2 class="popup-title">
+          Bilan Radiologique
+        </h2>
+  
+
+          <div class="bilan-content">
+            <h3>Radio: {{bilanData?.type}}</h3>
+            <div class="image-container">
+              <input type="file" (change)="onImageUpload($event)" accept="image/*">
+              <img [src]="uploadedImageUrl || bilanData?.img" alt="Radiological scan" class="scan-image">
+            </div>
+            <div class="report-text">
+              {{this.CompteRendu}}
+            </div>
+          </div>
+        <div class="popup-footer">
+          <button class="cancel-button" (click)="onClose()">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
