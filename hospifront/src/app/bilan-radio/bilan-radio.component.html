@@ -17,10 +17,14 @@
           <label for="radio-upload" class="file-upload-label">Attacher la photo de radio</label>
           <input id="radio-upload" type="file" (change)="onImageUpload($event)" accept="image/*" style="display: none;" />
         </div>
+        <img
+          [src]="uploadedImageUrl || bilanData?.img"
+          alt="Radiological Scan"
+          *ngIf="uploadedImageUrl || bilanData?.img"
+        />
       </div>
 
       <div class="popup-footer">
-        <button class="cancel-button" (click)="onClose()">Annuler</button>
         <button class="save-button" (click)="onClose()">Enregistrer</button>
       </div>
     </div>
