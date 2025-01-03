@@ -4,7 +4,8 @@ import { Patient } from '../../patient';
 import { Consultation } from '../../consultation';
 import { DPI } from '../../dpi';
 import { LoginRoutingService } from '../../login-routing.service';
-import { DpiService } from '../../dpi/dpi.service'; 
+import { DpiService } from '../../dpi/dpi.service';
+import { QRCodeService } from '../../dpi/qrcode.service'; 
 import { RouterModule } from '@angular/router';
 import { formToJSON } from 'axios';
 
@@ -25,11 +26,14 @@ export class DPIListComponent implements OnInit {
   filteredPatients: Patient[] = [];
   realdpi: DPI[] | undefined;
   selectedFile: File | null = null
+  isLoading: boolean = false; 
+  errorMessage: string | null = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private dpiService: DpiService, 
+    private qrCodeService: QRCodeService
   ) { }
   ngOnInit() {
     this.dpiService.getDPIList().subscribe(
@@ -39,7 +43,7 @@ export class DPIListComponent implements OnInit {
         this.dpis = data; // Stocke la réponse dans dpis
   
         // Crée un tableau de dossiers en extrayant chaque "dpi" de chaque objet
-        /*
+        
         this.dossiers = data.map(dpiObj => {
           const dpi = dpiObj.dpi;  // Accéder à l'objet "dpi" dans chaque élément de data
           const patient = dpiObj.patient;  // Accéder à l'objet "patient" dans chaque élément de data
@@ -52,34 +56,28 @@ export class DPIListComponent implements OnInit {
             creationDate: dpi?.creationDate?.split(' ')[0] ,  // Accès à dpi.creationDate
             creationTime: dpi?.creationDate?.split(' ')[1]   // Accès à dpi.creationDate
           };
-        });*/
-
-        for (let index = 0; index < data.length; index++) {
-          const element = data[index].patient;
-          this.patients.push(element)
-        }
-        console.log("Patients:")
-        console.log(this.patients)
-        // Initialisez la liste filtrée pour la recherche
+        });
+        
+        this.patients = this.dossiers
         this.filteredPatients = [...this.patients];  // Utilisez 'dossiers' pour la recherche
-         console.log(this.filteredPatients)
+        
       },
       (error) => {
         console.error('Erreur lors de la récupération des DPI :', error);
       }
     );
   }
-  
-  
-  
-  
+
+
 
   searchDPIs(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
     // First try to match NSS exactly
+    console.log("serch term : "+searchTerm)
     const nssPatientsMatch = this.patients.filter(patient => 
       patient.nss === searchTerm
     );
+    console.log("nss patient : "+nssPatientsMatch)
 
     // If NSS match is found, show only those results
     if (nssPatientsMatch.length > 0) {
@@ -92,9 +90,13 @@ export class DPIListComponent implements OnInit {
       patient.nss.includes(searchTerm) 
     );
   }
+  
+  
+  
 
 
 
+  
   triggerFileInput(): void {
     const fileInput = document.querySelector<HTMLInputElement>('#fileInput');
     if (fileInput) {
@@ -110,35 +112,56 @@ export class DPIListComponent implements OnInit {
       console.log('File selected:', file);
 
       // You can now process the file, e.g., upload it to a server
-      this.uploadFile(file);
+      this.searchByQR(file);
     }
   }
 
-  // Mock function to handle file upload
-  uploadFile(file: File): void {
-    // Replace this with actual upload logic
+  searchByQR(file: File): void {
+    this.isLoading = true;
+    this.errorMessage = null;
     console.log(`Uploading file: ${file.name}`);
-    // Example: Use an HTTP service to send the file to the server
-    // this.httpClient.post('your-server-endpoint', file).subscribe(...);
-    
-
-
-
-
-
-  }
- 
-  searchByQR(): void {
-
-
+    console.log('Fichier:', file);
   
-
-
-
-
-
-
+    this.qrCodeService.searchByQRCode(file).subscribe({
+      next: (response) => {
+        console.log('Réponse du serveur:', response);
+        this.isLoading = false;
+  
+        const data = response?.data;
+  
+        if (data && data.success) {
+          console.log('DPI récupérés :', data);
+  
+          const patient = data.patient;
+          const dpi = data.dpi_id;
+  
+          this.dossiers = [{
+            nss: patient?.nss,
+            name: patient?.name,
+            email: patient?.email,
+            phone: patient?.phone,
+            creationDate: data.creationDate?.split(' ')[0], 
+            creationTime: data.creationDate?.split(' ')[1], 
+          }];
+  
+          this.patients = this.dossiers;
+          this.filteredPatients = [...this.patients]; 
+        } else {
+          console.error('Réponse inattendue du serveur:', data);
+          this.errorMessage = 'Données mal formatées reçues du serveur.';
+          this.isLoading = false;
+        }
+      },
+      error: (error) => {
+        console.log('Erreur lors de la recherche par QR code:', error);
+        this.errorMessage = 'Erreur lors de la recherche. Veuillez réessayer.';
+        this.isLoading = false;
+      },
+    });
   }
+  
+ 
+  
 
   createDPI(): void {
     // Implement create logic
