@@ -9,6 +9,7 @@ import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
 import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { labDashboardComponent } from './lab-dash/lab-dash.component';
+import { RadioDashboardComponent } from './radio-dash/radio-dash.component';
 
 
  const  routeConfig: Routes = [
@@ -36,6 +37,11 @@ import { labDashboardComponent } from './lab-dash/lab-dash.component';
     {
         path:'lab-dashboard',
         component:labDashboardComponent,
+        title:'dahsboard',
+    },
+    {
+        path:'radio-dashboard',
+        component:RadioDashboardComponent,
         title:'dahsboard',
     },
 

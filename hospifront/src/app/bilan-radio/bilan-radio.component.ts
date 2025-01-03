@@ -1,35 +1,44 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BilanRadio } from '../bilan-radio';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-bilan-radio-popup',
+  standalone: true, // Add this line
   templateUrl: './bilan-radio.component.html',
-  styleUrls: ['./bilan-radio.component.css']
+  imports: [FormsModule, CommonModule],
+  styleUrls: ['./bilan-radio.component.css'],
 })
-export class BilanDetailsPopupComponent {
-onImageUpload($event: Event) {
-throw new Error('Method not implemented.');
-}
+export class BilanRadioPopupComponent {
   @Input() isVisible: boolean = false;
-  @Input() bilanType: 'radiologique' = 'radiologique';
-  @Input() bilanData: BilanRadio | undefined | null;
+  @Input() bilanData: BilanRadio | null | undefined = null;
   @Output() close = new EventEmitter<void>();
-uploadedImageUrl: any;
 
+  uploadedImageUrl: string | null = null;
+  compteRendu: string = '';
 
-  get CompteRendu() {
-    if (this.bilanData && this.isBilanRadio(this.bilanData)) {
-      return this.bilanData.compteRendu;
+  ngOnChanges() {
+    if (this.bilanData) {
+      this.compteRendu = this.bilanData.compteRendu;
     }
-    return undefined;
   }
 
-
-  private isBilanRadio(bilan: BilanRadio): boolean {
-    return 'compteRendu' in bilan;
+  onImageUpload(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.uploadedImageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   onClose() {
+    if (this.bilanData) {
+      this.bilanData.compteRendu = this.compteRendu;
+    }
     this.close.emit();
   }
 }

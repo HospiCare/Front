@@ -1,25 +1,28 @@
 <div class="popup-overlay" [class.visible]="isVisible">
-    <div class="popup-container">
-      <div class="popup-content">
-        <h2 class="popup-title">
-          Bilan Radiologique
-        </h2>
-  
+  <div class="popup-container">
+    <div class="popup-content">
+      <h2 class="popup-title">
+        IRM
+      </h2>
 
-          <div class="bilan-content">
-            <h3>Radio: {{bilanData?.type}}</h3>
-            <div class="image-container">
-              <input type="file" (change)="onImageUpload($event)" accept="image/*">
-              <img [src]="uploadedImageUrl || bilanData?.img" alt="Radiological scan" class="scan-image">
-            </div>
-            <div class="report-text">
-              {{this.CompteRendu}}
-            </div>
-          </div>
-        <div class="popup-footer">
-          <button class="cancel-button" (click)="onClose()">Annuler</button>
+      <div class="compte-rendu-section">
+        <label class="section-label">Compte rendu:</label>
+        <textarea [(ngModel)]="compteRendu"
+          placeholder="Rédigez le compte rendu de ce bilan radiologique..."></textarea>
+      </div>
+
+      <div class="radio-section">
+        <label class="section-label" for="radio-upload">Radio:</label>
+        <div class="file-upload">
+          <label for="radio-upload" class="file-upload-label">Attacher la photo de radio</label>
+          <input id="radio-upload" type="file" (change)="onImageUpload($event)" accept="image/*" style="display: none;" />
         </div>
+      </div>
+
+      <div class="popup-footer">
+        <button class="cancel-button" (click)="onClose()">Annuler</button>
+        <button class="save-button" (click)="onClose()">Enregistrer</button>
       </div>
     </div>
   </div>
-  
+</div>

@@ -1,5 +1,5 @@
 export interface BilanRadio {
-    img:string;
-    compteRendu:string;
+  img: string;
+  compteRendu: string;
   type: string;
 }
