@@ -4,16 +4,13 @@ import { RouterModule } from '@angular/router';
 import { LoginBoxComponent } from "./login-box/login-box.component";
 import { DPI } from './dpi';
 import { Consultation } from './consultation';
-import { state } from '@angular/animations';
 import { LoginRoutingService } from './login-routing.service';
-import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { apiClient } from './apiService/Client';
-import { DPIListComponent } from './dpi/dpi-list/dpi-list.component';
-import { labDashboardComponent } from './lab-dash/lab-dash.component';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent,CreateDpiComponent,DPIListComponent,labDashboardComponent],
+  imports: [RouterModule, LoginBoxComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

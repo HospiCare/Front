@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserAccount } from '../user-account';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -19,8 +19,7 @@ export class LoginBoxComponent {
     email: new FormControl(''),
     password: new FormControl(''),
   });
-dpis : DPI[] = [{patient:{
-  id:1,
+/*dpis : DPI[] = [{patient:{
   nss: '4234234',
   name: 'hmida',
   email: 'rwrw@gmail.dz',
@@ -33,7 +32,7 @@ dpis : DPI[] = [{patient:{
 
 },
   consultations:null
-}]
+}] */
   async onSubmit(): Promise<void> {
     const email = this.loginForm.value.email ?? '';
     const password = this.loginForm.value.password ?? '';
@@ -41,6 +40,6 @@ dpis : DPI[] = [{patient:{
     const user: UserAccount = await apiClient.login(email, password);
 
     // TODO: fix Data
-    this.loginSuccess.emit({username: `${user.first_name} ${user.last_name}`, role: user.user_type, Data:this.dpis});
+   /*  this.loginSuccess.emit({username: `${user.first_name} ${user.last_name}`, role: user.user_type, Data:this.dpis}); */
   }
 }

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
         <img src="./assets/bill.png" alt="bill icon">
         <p class="title"> demandes de facture </p>
       </div>
-      <div class="button grey" (click)="navigateTo('login')">
+      <div class="button grey" (click)="navigateTo('creer-dpi')">
         <img src="./assets/addFolder.png" alt="add folder icon">
         <p class="title"> creer DPI </p>
       </div>
