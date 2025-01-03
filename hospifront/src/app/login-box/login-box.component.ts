@@ -19,13 +19,16 @@ export class LoginBoxComponent {
     email: new FormControl(''),
     password: new FormControl(''),
   });
-/* dpis : DPI[] = [{patient:{
+/*dpis : DPI[] = [{patient:{
   nss: '4234234',
   name: 'hmida',
   email: 'rwrw@gmail.dz',
   phone: '05033212',
   creationDate: '09/2132',
   creationTime: '10:23',
+  adresse: 'uhzfehou',
+  date_naissance: '11/11/1990'
+
 
 },
   consultations:null

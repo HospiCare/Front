@@ -65,6 +65,8 @@ import { labDashboardComponent } from './lab-dash/lab-dash.component';
         path: 'patient-dpi/:nss',
         component: PatientDetailsComponent
       },
+      
+
 
 ];
 export default routeConfig;

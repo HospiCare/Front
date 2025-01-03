@@ -49,12 +49,16 @@ export class DPIListComponent implements OnInit {
           const patient = dpiObj.patient;  // Accéder à l'objet "patient" dans chaque élément de data
           console.log(patient)
           return {
+            id: patient?.id,
+            adresse: patient?.adresse,
+            telephone_contact: patient?.telephone_contact,
             nss: patient?.nss ,
             name: patient?.name ,
             email: patient?.email ,
             phone: dpi?.phone ,  // Accès à dpi.phone
             creationDate: dpi?.creationDate?.split(' ')[0] ,  // Accès à dpi.creationDate
-            creationTime: dpi?.creationDate?.split(' ')[1]   // Accès à dpi.creationDate
+            creationTime: dpi?.creationDate?.split(' ')[1],
+            date_naissance: patient?.date_naissance,
           };
         });
         
@@ -190,11 +194,12 @@ export class DPIListComponent implements OnInit {
   navigateToPatientDetails(patient: Patient) {
     // Convert patient data to match the patient-details format
     const patientDetails = {
+      id: patient.id,
       nom: patient.name.split(' ')[1], // Assuming name is "FirstName LastName"
       prenom: patient.name.split(' ')[0],
       nss: patient.nss,
-      dateNaissance: '', // You'll need to add this to your patient interface if available
-      adresse: '', // You'll need to add this to your patient interface if available
+      dateNaissance: patient.date_naissance, // You'll need to add this to your patient interface if available
+      adresse: patient.adresse, // You'll need to add this to your patient interface if available
       tel: patient.phone,
       mutuelle: '', // You'll need to add this to your patient interface if available
       personneContact: '', // You'll need to add this to your patient interface if available
