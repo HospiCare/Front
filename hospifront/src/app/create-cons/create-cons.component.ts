@@ -10,6 +10,8 @@ import { Ordonnance } from '../ordonnance';
 import { Consultation } from '../consultation';
 import { DPIListComponent } from '../dpi/dpi-list/dpi-list.component';
 import { Soins } from '../soins';
+import { Frais } from '../frais';
+import { __makeTemplateObject } from 'tslib';
 
 @Component({
   selector: 'app-create-cons',
@@ -219,6 +221,10 @@ export class CreateConsComponent {
     consultations : Consultation[] | undefined;
     currentDate: string;
     medicaments: Medicament[] = [];
+    laboratin: string = '';
+    radiologue: string = '';
+    infirmier: string = '';
+    frais : Frais | null = null
     nouveauMedicament: Medicament = {
         nom: '',
         dose: 0,
@@ -230,7 +236,7 @@ export class CreateConsComponent {
     bilanBio: BilanBio | null = null;
     bilanRadio: BilanRadio | null = null;
     resume: string = ''; // Add this property
-    Soins: Soins[] | null = null;
+    Soins: Soins | null = null;
     dpilist:DPIListComponent | undefined
     id:number | undefined
 
@@ -323,7 +329,11 @@ export class CreateConsComponent {
             bilanBio: this.bilanBio,
             bilanRadio: this.bilanRadio,
             resume: this.resume,
-            soins: this.Soins
+            soins: this.Soins,
+            laboratin: this.laboratin,
+            radiologue: this.radiologue,
+            infirmier: this.infirmier,
+            frais : this.frais
         };
 
         
@@ -337,5 +347,6 @@ export class CreateConsComponent {
         
         // Here you would typically send this to your backend service
         // For now, we'll just log it to the console
+
     }
 }

@@ -18,12 +18,12 @@ import { labDashboardComponent } from './lab-dash/lab-dash.component';
         title:'dpi',
     },
     {
-        path:'',
+        path:'login-page',
         component : LoginBoxComponent,
         title:'login page',
     },
     {
-        path:'admin-page',
+        path:'',
         component : AdminPageComponent,
         title: 'admin',
 
