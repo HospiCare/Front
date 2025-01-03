@@ -22,6 +22,8 @@ export class CreateDpiComponent implements OnInit {
     NSS: new FormControl(''),
     DateNaissance: new FormControl(''),
     Adresse: new FormControl(''),
+    email : new FormControl(''),
+    password : new FormControl(''),
     Telephone: new FormControl(''),
     Mutuelle: new FormControl(''),
     MedcinTraitant: new FormControl(''),
@@ -35,11 +37,13 @@ export class CreateDpiComponent implements OnInit {
     const NSS = this.DpiCreateForm.value.NSS ?? '';
     const DateNaissance = this.DpiCreateForm.value ?? '';
     const Adresse = this.DpiCreateForm.value ?? '';
+    const email = this.DpiCreateForm.value ?? '';
+    const password = this.DpiCreateForm.value ?? '';
     const Telephone = this.DpiCreateForm.value ?? '';
     const Mutuelle = this.DpiCreateForm.value ?? '';
     const MedcinTraitant = this.DpiCreateForm.value ?? '';
     const PersonneAContacter = this.DpiCreateForm.value ?? '';
-    const data = {Nom, Prenom, NSS, DateNaissance, Adresse, Telephone, Mutuelle, MedcinTraitant, PersonneAContacter} ;
+    const data = {Nom, Prenom, NSS, DateNaissance, Adresse,email,password, Telephone, Mutuelle, MedcinTraitant, PersonneAContacter} ;
 
     try{
       const   response = await apiClient.post(endpoint, data);
