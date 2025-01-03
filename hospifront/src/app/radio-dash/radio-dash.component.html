@@ -16,7 +16,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         @for (patient of patients; track patient.id) {
                             <tr>
                                 <td>{{patient.name}}</td>
@@ -40,7 +40,7 @@
                                 </td>
                             </tr>
                         }
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
         </div>
@@ -49,10 +49,10 @@
     <!-- Modal Overlay -->
 </div>
 
-<app-bilan-change-popup
+<!-- <app-bilan-change-popup
 *ngIf="isPopupVisible"
 [isVisible]="isPopupVisible"
 [bilanType]="'biologique'" 
 [bilanData]="selectedPatient"
 (close)="closePopup()">
-</app-bilan-change-popup>
+</app-bilan-change-popup> -->
