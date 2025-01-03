@@ -6,11 +6,13 @@ import { DPI } from './dpi';
 import { Consultation } from './consultation';
 import { LoginRoutingService } from './login-routing.service';
 import { apiClient } from './apiService/Client';
+import { RadioDashboardComponent } from "./radio-dash/radio-dash.component";
+import { labDashboardComponent } from "./lab-dash/lab-dash.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent],
+  imports: [RouterModule, LoginBoxComponent, RadioDashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
