@@ -3,7 +3,7 @@
 
     <main class="main">
         <div class="card">
-            <h1 class="card-title">Patients avec bilans biologique:</h1>
+            <h1 class="card-title">Patients avec bilans Radiologique:</h1>
             
             <div class="table-container">
                 <table class="table">
@@ -16,8 +16,8 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        @for (patient of patients; track patient.id) {
+                     <tbody>
+                        @for (patient of listDesPatients; track patient.id) {
                             <tr>
                                 <td>{{patient.name}}</td>
                                 <td>{{patient.id}}</td>
@@ -40,7 +40,7 @@
                                 </td>
                             </tr>
                         }
-                    </tbody> -->
+                    </tbody> 
                 </table>
             </div>
         </div>
@@ -49,10 +49,10 @@
     <!-- Modal Overlay -->
 </div>
 
-<!-- <app-bilan-change-popup
+<app-billan-radio-popup
 *ngIf="isPopupVisible"
 [isVisible]="isPopupVisible"
 [bilanType]="'biologique'" 
 [bilanData]="selectedPatient"
-(close)="closePopup()">
-</app-bilan-change-popup> -->
+(close)="closePopup()">>    
+</app-billan-radio-popup>
