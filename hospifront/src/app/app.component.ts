@@ -15,14 +15,24 @@ import { LoginBoxComponent } from "./login-box/login-box.component";
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-logout() {
-    this.isLogin = false;
-}
   isLogin: boolean = false;
   userRole: string = '';
   currentRoute: string = '';
   title = 'RiscoFront';
   loginroute : LoginRoutingService = inject(LoginRoutingService);
+  choice?:number = undefined;
+  consultions? : Consultation[] = undefined;
+  DPI1? : DPI[] = undefined;
+  patientdpi? : DPI = undefined;
+ userName? : string = undefined;
+fakeLogin() {
+this.isLogin = true;
+}
+logout() {
+    this.isLogin = false;
+}
+  
+
   constructor(private router: Router) {
     this.isLogin = apiClient.isLoggedIn();
     if (this.isLogin) {
@@ -36,11 +46,7 @@ logout() {
 
   }
 
-  choice?:number = undefined;
-  consultions? : Consultation[] = undefined;
-  DPI1? : DPI[] = undefined;
-  patientdpi? : DPI = undefined;
- userName? : string = undefined;
+  
  handleLoginSuccess(event: {username : string , role : string , Data : DPI | DPI[] | Consultation[]}) {
     this.userName = event.username;
     switch(event.role){

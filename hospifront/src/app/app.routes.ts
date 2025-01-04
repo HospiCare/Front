@@ -10,11 +10,12 @@ import { CreateDpiComponent } from './create-dpi/create-dpi.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { labDashboardComponent } from './lab-dash/lab-dash.component';
 import { RadioDashComponent } from './radio-dash/radio-dash.component';
+import { TestComponent } from './test/test.component';
 
 
  const  routeConfig: Routes = [
     {
-        path:'creer-dpi',
+        path:'create-dpi',
         component : CreateDpiComponent,
         title:'dpi',
     },
@@ -69,6 +70,9 @@ import { RadioDashComponent } from './radio-dash/radio-dash.component';
       {
         path: 'radio-page',
         component: RadioDashComponent
+      },{
+        path: 'test',
+        component: TestComponent
       }
 
 ];

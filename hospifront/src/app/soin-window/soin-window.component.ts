@@ -11,28 +11,22 @@ import { Soins } from '../soins';
 })
 export class SoinWindowComponent {
   isOrdonnancePopupVisible = false;
-  @Input() selectedOrdonnance: Ordonnance | null = null;
+  @Input() selectedOrdonnance?: Ordonnance | null ;
+  @Input() soins?: Soins | null  // This is the input property for soins
   
   // Initialize array of Soins
-  soins: Soins[] = [];
+
 
   // Example ordonnance structure
-  ordonnance: Ordonnance = {
-    medicaments: [
-      { nom: 'Medicament 1', dose: 500, duree: 7 },
-      { nom: 'Medicament 2', dose: 250, duree: 5 }
-    ],
-    valide: true
-  };
+ 
 
   showOrdonnanceDetails() {
-    this.selectedOrdonnance = this.ordonnance;
+    this.selectedOrdonnance = this.selectedOrdonnance;
     this.isOrdonnancePopupVisible = true;
   }
 
   hideOrdonnanceDetails() {
     this.isOrdonnancePopupVisible = false;
-    this.selectedOrdonnance = null;
   }
 
   addSoin(soinInput: HTMLInputElement, observationInput: HTMLInputElement) {
@@ -44,7 +38,7 @@ export class SoinWindowComponent {
       };
       
       // Add to soins array
-      this.soins.push(newSoin);
+      this.soins = newSoin;
       
       // Clear inputs after adding
       soinInput.value = '';

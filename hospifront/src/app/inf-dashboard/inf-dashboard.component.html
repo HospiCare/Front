@@ -17,14 +17,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (patient of patients; track patient.id) {
+                        @for (patient of listDesPatients; track patient.id) {
                             <tr>
                                 <td>{{patient.name}}</td>
                                 <td>{{patient.id}}</td>
-                                <td>{{patient.doctorName}}</td>
+                                <td>{{patient.Medemail}}</td>
                                 <td>{{patient.date}}</td>
                                 <td>
-                                    <button class="edit-button" (click)="openSoinModal()">
+                                    <button class="edit-button" (click)="afficherSoinWindow(patient)">
                                         <svg viewBox="0 0 24 24" class="icon">
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
                                                   stroke="currentColor" fill="none" stroke-width="2"/>
@@ -50,24 +50,13 @@
     <div id="soinModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="card-title">Soins de Nom de patient</h2>
+                <h2 class="card-title">Soins de {{Selectedpatient}}</h2>
                 <button class="close-button" (click)="closeSoinModal()">×</button>
             </div>
             <div class="modal-body">
-                <app-soin-window></app-soin-window>
+                <app-soin-window [selectedOrdonnance] ="SelectOrdonnance" [soins]="soins"></app-soin-window>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    function openSoinModal() {
-        document.getElementById('soinModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeSoinModal() {
-        document.getElementById('soinModal').classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-</script>

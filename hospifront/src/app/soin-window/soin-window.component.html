@@ -15,8 +15,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ordonnance.medicaments[0].nom}}</td>
-                            <td>{{ordonnance.valide ? 'Valide' : 'Non Valide'}}</td>
+                            <td>Ordonnance</td>
+                            <td>{{selectedOrdonnance?.valide ? 'Valide' : 'Non Valide'}}</td>
                             <td>
                                 <button class="icon-button" (click)="showOrdonnanceDetails()">
                                     <svg viewBox="0 0 24 24" class="icon">
@@ -45,7 +45,7 @@
                         placeholder="Observation" 
                         class="input" 
                         #observationInput>
-                    <button 
+                    <button [disabled]="soins != null"
                         class="button" 
                         (click)="addSoin(soinInput, observationInput)">
                         Ajouter
@@ -60,13 +60,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (soin of soins; track soin.name) {
+                        @if( soins != null ) {
                             <tr>
-                                <td>{{soin.name}}</td>
-                                <td>{{soin.observation}}</td>
+                                <td>{{soins.name}}</td>
+                                <td>{{soins.observation}}</td>
                             </tr>
-                        }
-                        @empty {
+                        
+                        }@else {
                             <tr>
                                 <td colspan="2" class="empty-state">
                                     Aucun soin ajouté
