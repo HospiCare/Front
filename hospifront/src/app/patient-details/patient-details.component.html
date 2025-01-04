@@ -1,81 +1,81 @@
 <div class="app">
     
   
-    <main class="main">
-      <section class="patient-info">
-        <div class="qr-code">
-          <img src="./assets/Micro_QR_Example.webp" alt="QR Code" />
-          <button class="button secondary" (click)="exporterDPI()">Exporter</button>
+  <main class="main">
+    <section class="patient-info">
+      <div class="qr-code">
+        <img src="./assets/Micro_QR_Example.webp" alt="QR Code" />
+        <button class="button secondary" (click)="exporterDPI()">Exporter</button>
+      </div>
+
+      <div class="details">
+        <div class="detail-row">
+          <span class="label">Nom :</span>
+          <span class="value">{{patient?.nom}}</span>
         </div>
-  
-        <div class="details">
-          <div class="detail-row">
-            <span class="label">Nom :</span>
-            <span class="value">{{patient?.nom}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">Prenom :</span>
-            <span class="value">{{patient?.prenom}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">NSS :</span>
-            <span class="value">{{patient?.nss}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">Date de naissance :</span>
-            <span class="value">{{patient?.dateNaissance}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">Adresse :</span>
-            <span class="value">{{patient?.adresse}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">N tel. :</span>
-            <span class="value">{{patient?.tel}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">Mutuelle :</span>
-            <span class="value">{{patient?.mutuelle}}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">Personne à contacter :</span>
-            <span class="value">{{patient?.personneContact}}</span>
-          </div>
+        <div class="detail-row">
+          <span class="label">Prenom :</span>
+          <span class="value">{{patient?.prenom}}</span>
         </div>
-      </section>
-  
-      <section class="consultations">
-        <h2>Liste des consultations:</h2>
-        <div class="table-container">
-          <table class="table">
-            <thead>
+        <div class="detail-row">
+          <span class="label">NSS :</span>
+          <span class="value">{{patient?.nss}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Date de naissance :</span>
+          <span class="value">{{patient?.dateNaissance}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Adresse :</span>
+          <span class="value">{{patient?.adresse}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">N tel. :</span>
+          <span class="value">{{patient?.tel}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Mutuelle :</span>
+          <span class="value">{{patient?.mutuelle}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Personne à contacter :</span>
+          <span class="value">{{patient?.personneContact}}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="consultations">
+      <h2>Liste des consultations:</h2>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date de creation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (consultation of consultations; track consultation) {
               <tr>
-                <th>Date de creation</th>
-                <th>Actions</th>
+                <td>
+                  <div>{{consultation.date}}</div>
+                  <div class="time">{{consultation.date}}</div>
+                </td>
+                <td>
+                  <div class="actions">
+                    <button class="icon-button" (click)="voirConsultation(consultation)" title="Voir consultation">
+                      <svg viewBox="0 0 24 24" class="icon">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" 
+                              fill="currentColor"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              @for (consultation of consultations; track consultation) {
-                <tr>
-                  <td>
-                    <div>{{consultation.date}}</div>
-                    <div class="time">{{consultation.date}}</div>
-                  </td>
-                  <td>
-                    <div class="actions">
-                      <button class="icon-button" (click)="voirConsultation(consultation)" title="Voir consultation">
-                        <svg viewBox="0 0 24 24" class="icon">
-                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" 
-                                fill="currentColor"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-  </div>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
