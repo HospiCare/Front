@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RadioDashboardComponent } from './radio-dash.component';
+import { RadioDashComponent } from './radio-dash.component';
 
 describe('RadioDashComponent', () => {
-  let component: RadioDashboardComponent;
-  let fixture: ComponentFixture<RadioDashboardComponent>;
+  let component: RadioDashComponent;
+  let fixture: ComponentFixture<RadioDashComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioDashboardComponent]
+      imports: [RadioDashComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RadioDashboardComponent);
+    fixture = TestBed.createComponent(RadioDashComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

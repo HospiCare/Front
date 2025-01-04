@@ -22,10 +22,4 @@ export interface UserAccount {
 
   // Radiologue and Infirmier-specific fields
   specialization?: string;
-
-  medecin_id?: number;
-  infirmier_id?: number;
-  radiologue_id?: number;
-  laborantin_id?: number;
-  patient_id?: number;
 }

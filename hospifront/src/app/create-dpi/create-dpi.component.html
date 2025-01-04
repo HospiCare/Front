@@ -66,27 +66,10 @@
                     </div>
 
                     <div class="grid grid-cols-[140px,1fr] items-center gap-16">
-                      <label for="medecin" class="font-medium">
-                        Medecin traitant
-                      </label>
-
-                      @if (isLoading) {
-                      <div>Loading...</div>
-                      }
-                      @else if (errorMessage) {
-                      <div>{{ errorMessage }}</div>
-                      }
-                      @else {
-                      <div class="flex items-center">
-                        <select id="MedcinTraitant" name="MedcinTraitant" formControlName="MedcinTraitant" class="select-input w-full px-3 py-2 border rounded-md text-sm bg-white">
-                          @for (medecin of medecins; track medecin.id) {
-                          <option value="{{ medecin.medecin_id }}">
-                          {{ medecin.first_name }} {{ medecin.last_name }}
-                          </option>
-                          }
-                        </select>
-                      </div>
-                      }
+                        <label for="medecin" class="font-medium">
+                            Medecin traitant
+                        </label>
+                        <input required formControlName="MedcinTraitant" type="text" id="medecin" placeholder="Medecin traitant" class="w-full px-3 py-2 border rounded-md text-sm" />
                     </div>
 
                     <div class="grid grid-cols-[140px,1fr] items-center gap-16">
@@ -109,4 +92,4 @@
             </form>
         </div>
     </div>
-
+    

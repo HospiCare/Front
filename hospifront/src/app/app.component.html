@@ -1,10 +1,10 @@
-<!-- @if (isLogin) { -->
+  @if (isLogin) {   
 <header class="container">
     <div class="item">
       <img src="./assets/logo.png" alt="logo">
     </div>
     <div class="item " id="navbar">
-        <button class="icon-button">
+        <button class="icon-button" (click)="logout()">
             <svg viewBox="0 0 24 24" class="icon" style="color: #FF3B30;">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9"
                       stroke="currentColor" fill="none" stroke-width="2"/>
@@ -27,10 +27,9 @@
   </header>
 
 <body class="content">
- <!-- <router-outlet></router-outlet> -->
-  <!-- <app-radio-dash></app-radio-dash> -->
-  <app-lab-dash></app-lab-dash>
-</body>
- <!-- @else {
+ <router-outlet></router-outlet>
+</body> }
+ 
+@else {
   <app-login-box (loginSuccess)="handleLoginSuccess($event)"></app-login-box>
-} -->
+} 
