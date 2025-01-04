@@ -351,7 +351,7 @@ radiologues: string[]  | null = null; //hna nsh9o la list ta3 inf,labo,radio ;
       this.bilanRadio = {
         type: this.selectedBilanRadioType,
         compteRendu: '',
-        img: '',
+        img: null,
       };
       this.bilanBio = null;
       console.log('Bilan Radiologique créé:', this.bilanRadio);

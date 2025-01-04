@@ -30,9 +30,9 @@ export class RadioDashComponent {
       doctorName: 'Dr. A',
       date: '01/01/2021',
       bilan: {
-        img: '',
+        img: null,
         compteRendu: 'compte rendu',
-        type: 'biologique'
+        type: 'IRM'
         
       }
     },];
