@@ -4,7 +4,6 @@ import { Patient } from '../patient';
 import { Consultation } from '../consultation';
 import { LoginRoutingService } from '../login-routing.service';
 import { DPI } from '../dpi';
-import { ConsultationService } from './consultation.service';
 
 
 
@@ -19,9 +18,6 @@ export class PatientDetailsComponent implements OnInit {
   nss: string | null = null;
   consultations?: Consultation[] | null = []; // Property to hold consultations
   loginservice : LoginRoutingService = inject(LoginRoutingService);
-  consultationService = inject(ConsultationService);
-
-
   constructor(
     private router: Router,
     private route: ActivatedRoute
@@ -39,43 +35,20 @@ export class PatientDetailsComponent implements OnInit {
     }
 
   }
-  
 
-  
   ngOnInit() {
-   this.router.navigate(['patient-dpi/:nss'], {
-   state: {
-    patient: this.patient,  
-    consultations: this.consultations
-  }
-});
-
-    // Vérification de la récupération des données depuis le router
-    const patientState = this.router.getCurrentNavigation()?.extras.state?.['patient'];
-    console.log("Patient State:", patientState); // Vérifier si le patient est bien récupéré
-    this.patient = patientState;
-    
+    // Get NSS from URL
     this.nss = this.route.snapshot.paramMap.get('nss');
-    console.log("NSS récupéré:", this.nss); // Vérifier si NSS est récupéré correctement
-  
-   
-      console.log("Patient ID:", this.patient.id); // Vérifier l'ID du patient
-      this.loadConsultations(this.patient.id);
     
-}
-  
-
-  loadConsultations(patientId: number) {
-    this.consultationService.getConsultations(patientId).subscribe({
-      next: (data) => {
-        this.consultations = data;
-        console.log(data)
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération des consultations :', err);
-      },
-    });
+    if (!this.patient && this.nss) {
+      // If we have NSS but no patient data, you could fetch the patient data here
+      // this.patientService.getPatientByNss(this.nss).subscribe(...);
+    } else if (!this.patient && !this.nss) {
+      // If we have neither patient data nor NSS, redirect to list
+      this.router.navigate(['/dpi-list']);
+    }
   }
+
   exporterDPI() {
     // Get the QR code image element
     const qrCodeImg = document.querySelector('.qr-code img') as HTMLImageElement;

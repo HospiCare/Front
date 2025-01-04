@@ -24,32 +24,12 @@ export class InfDashboardComponent {
     this.dashboard = this.loginservice.getDAta() as Consultation []
     
   }
-  patients: PatientSoin[] = [
-    {
-      id: '9028721',
-      name: 'Brooklyn Simmons',
-      doctorName: 'Dr. Smith',
-      date: '21/12/2022'
-    },
-    {
-      id: '9028722',
-      name: 'John Cooper',
-      doctorName: 'Dr. Johnson',
-      date: '21/12/2022'
-    },
-    {
-      id: '9028723',
-      name: 'Sarah Wilson',
-      doctorName: 'Dr. Brown',
-      date: '22/12/2022'
-    },
-    {
-      id: '9028724',
-      name: 'Michael Davis',
-      doctorName: 'Dr. Miller',
-      date: '22/12/2022'
-    }
-  ];
+  patients: PatientSoin[] = [{
+    id:'02128821',
+    name: 'John Doe',
+    doctorName: 'Dr. Jane Doe',
+    date: '12/12/2021'
+  }];
 
   openSoinModal() {
     document.getElementById('soinModal')?.classList.add('active');

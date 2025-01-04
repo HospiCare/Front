@@ -9,17 +9,16 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
   styleUrls: ['./bilan-change-popup.component.css']
 })
 export class BilanChangePopupComponent {
-
   @Input() isVisible: boolean = false;
+  @Input() bilanType: 'biologique' | 'radiologique' = 'biologique';
   @Input() bilanData: any;
   @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<{id: string; results: any}>();
 
-
-  editableTestResults: { name: string, result: any }[] = [];
+  editableTestResults: { name: string, result: string }[] = [];
 
   ngOnChanges() {
-    if (this.bilanData) {
+    if (this.bilanData && this.isBilanBio(this.bilanData)) {
+      // Initialize editable test results with name and result
       this.editableTestResults = this.bilanData.tests.map((test: { name: any; result: any; }) => ({
         name: test.name,
         result: test.result
@@ -28,21 +27,14 @@ export class BilanChangePopupComponent {
   }
 
   get testResults() {
-    if (this.bilanData ) {
+    if (this.bilanData && this.isBilanBio(this.bilanData)) {
       return this.bilanData.tests;
     }
     return [];
   }
 
-  onSave() {
-    const results = Object.fromEntries(
-      this.editableTestResults.map(test => [test.name, test.result])
-    );
-    
-    this.save.emit({
-      id: this.bilanData.id,
-      results
-    });
+  private isBilanBio(bilan: any): boolean {
+    return 'tests' in bilan;
   }
 
   onClose() {

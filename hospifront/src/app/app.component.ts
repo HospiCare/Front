@@ -1,22 +1,23 @@
 import { Component, inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { LoginBoxComponent } from "./login-box/login-box.component";
 import { DPI } from './dpi';
 import { Consultation } from './consultation';
 import { LoginRoutingService } from './login-routing.service';
 import { apiClient } from './apiService/Client';
-import { RadioDashboardComponent } from "./radio-dash/radio-dash.component";
-import { labDashboardComponent } from "./lab-dash/lab-dash.component";
+import { LoginBoxComponent } from "./login-box/login-box.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent, RadioDashboardComponent, labDashboardComponent],
+  imports: [RouterModule, LoginBoxComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+logout() {
+    this.isLogin = false;
+}
   isLogin: boolean = false;
   userRole: string = '';
   currentRoute: string = '';
@@ -62,12 +63,12 @@ this.router.navigate(['admin-page']);
       case 'laborantian' :
 this.consultions = event.Data as Consultation[] //loaboratin
 this.userRole = 'Laboratien'
-this.router.navigate(['patient-dpi/:nss']);
+this.router.navigate(['lab-dashboard']);
       break;
       case 'radiologue' :
 this.consultions = event.Data as Consultation[] //radiologue
 this.userRole = 'Radiologue'
-this.router.navigate(['patient-dpi/:nss']);
+this.router.navigate(['radio-page']);
       break;
       case 'infirmier' :
 this.consultions = event.Data as Consultation[] //infermier

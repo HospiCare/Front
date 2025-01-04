@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Ordonnance } from '../ordonnance';
 import { OrdonnanceDetailsPopupComponent } from '../ordonnance-details-popup/ordonnance-details-popup.component';
 import { Soins } from '../soins';
@@ -11,16 +11,16 @@ import { Soins } from '../soins';
 })
 export class SoinWindowComponent {
   isOrdonnancePopupVisible = false;
-  selectedOrdonnance: Ordonnance | null = null;
-
+  @Input() selectedOrdonnance: Ordonnance | null = null;
+  
   // Initialize array of Soins
   soins: Soins[] = [];
 
   // Example ordonnance structure
   ordonnance: Ordonnance = {
     medicaments: [
-      { name: 'Medicament 1', dosage: 500, duration: 7, frequency: '' },
-      { name: 'Medicament 2', dosage: 250, duration: 5, frequency: '' }
+      { nom: 'Medicament 1', dose: 500, duree: 7 },
+      { nom: 'Medicament 2', dose: 250, duree: 5 }
     ],
     valide: true
   };
@@ -42,10 +42,10 @@ export class SoinWindowComponent {
         name: soinInput.value.trim(),
         observation: observationInput.value.trim()
       };
-
+      
       // Add to soins array
       this.soins.push(newSoin);
-
+      
       // Clear inputs after adding
       soinInput.value = '';
       observationInput.value = '';
