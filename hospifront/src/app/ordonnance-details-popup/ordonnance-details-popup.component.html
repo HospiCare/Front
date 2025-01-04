@@ -13,11 +13,11 @@
           
           <div class="table-body">
             @if (ordonnance) {
-              @for (med of ordonnance.medicaments; track med.name) {
+              @for (med of ordonnance.medicaments; track med.nom) {
                 <div class="table-row">
-                  <div class="table-cell">{{med.name}}</div>
-                  <div class="table-cell">{{med.dosage}}</div>
-                  <div class="table-cell">{{med.duration}}</div>
+                  <div class="table-cell">{{med.nom}}</div>
+                  <div class="table-cell">{{med.dose}}</div>
+                  <div class="table-cell">{{med.duree}}</div>
                 </div>
               }
             }
