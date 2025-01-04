@@ -27,17 +27,38 @@ export class BilanService {
   private token = apiClient.auth_token;
   private baseUrl = 'http://127.0.0.1:8000'; // Adjust this to match your API URL
 
+  private axiosInstance = axios.create({
+    baseURL: this.baseUrl,
+    headers: {
+      'Authorization': `Token ${this.token}`
+    }
+  });
+
   constructor() {}
 
   getBilansList(): Observable<BilanResponse[]> {
-    const url = `${this.baseUrl}/afficher_liste_bilans/`; // Adjust the endpoint path as needed
     const headers = {
       'Authorization': `Token ${this.token}`
     };
 
     return from(
-      axios.get<BilanResponse[]>(url, { headers })
+      axios.get<BilanResponse[]>(`${this.baseUrl}/bilans/`, { headers })
         .then(response => response.data)
+    );
+  }
+
+  getBilanById(id: number): Observable<BilanResponse> {
+    return from(
+      this.axiosInstance.get<BilanResponse>(`/bilans/${id}/`)
+        .then(response => response.data)
+    );
+  }
+
+  updateBilanResults(id: number, results: any): Observable<any> {
+    return from(
+      this.axiosInstance.put(`/bilans/${id}/remplir/`, {
+        result: results
+      }).then(response => response.data)
     );
   }
 }

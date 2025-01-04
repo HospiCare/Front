@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LoginRoutingService } from '../login-routing.service';
 import { BilanChangePopupComponent } from '../bilan-change-popup/bilan-change-popup.component';
 import { CommonModule } from '@angular/common'; // Add this import
@@ -24,63 +24,64 @@ interface PatientSoin {
   templateUrl: './lab-dash.component.html',
   styleUrl: './lab-dash.component.css'
 })
-export class labDashboardComponent  {
+export class labDashboardComponent implements OnInit {
+
   loginservice: LoginRoutingService = inject(LoginRoutingService);
   bilanService: BilanService = inject(BilanService);
   
-  // patients: PatientSoin[] = [];
+  patients: PatientSoin[] = [];
   selectedPatient: PatientSoin | null = null;
   isPopupVisible: boolean = false;
-  patients: PatientSoin[] = [
-    {
-      id: '9028721',
-      name: 'Brooklyn Simmons',
-      doctorName: 'Dr. Smith',
-      date: '21/12/2022',
-      tests: [
-        { name: 'Test 1', result: 'Positive' },
-        { name: 'Test 2', result: 'Negative' }
-      ],
-      BilanType: 'Bilan sanguin',
-      graphData: undefined
-    },
-    {
-      id: '9028722',
-      name: 'John Cooper',
-      doctorName: 'Dr. Johnson',
-      date: '21/12/2022',
-      tests: [
-        { name: 'Test 1', result: 'Negative' }
-      ],
-      BilanType: 'Bilan sanguin',
-      graphData: undefined
-    },
-    {
-      id: '9028723',
-      name: 'Sarah Wilson',
-      doctorName: 'Dr. Brown',
-      date: '22/12/2022',
-      tests: [
-        { name: 'Test 1', result: 'Positive' }
-      ],
-      BilanType: 'Bilan sanguin',
-      graphData: undefined
-    },
-    {
-      id: '9028724',
-      name: 'Michael Davis',
-      doctorName: 'Dr. Miller',
-      date: '22/12/2022',
-      tests: [
-        { name: 'Test 1', result: 'Negative' }
-      ],
-      BilanType: 'Bilan sanguin',
-      graphData: undefined
-    },
-  ];
-  // ngOnInit() {
-  //   this.loadBilans();
-  // }
+  // patients: PatientSoin[] = [
+  //   {
+  //     id: '9028721',
+  //     name: 'Brooklyn Simmons',
+  //     doctorName: 'Dr. Smith',
+  //     date: '21/12/2022',
+  //     tests: [
+  //       { name: 'Test 1', result: 'Positive' },
+  //       { name: 'Test 2', result: 'Negative' }
+  //     ],
+  //     BilanType: 'Bilan sanguin',
+  //     graphData: undefined
+  //   },
+  //   {
+  //     id: '9028722',
+  //     name: 'John Cooper',
+  //     doctorName: 'Dr. Johnson',
+  //     date: '21/12/2022',
+  //     tests: [
+  //       { name: 'Test 1', result: 'Negative' }
+  //     ],
+  //     BilanType: 'Bilan sanguin',
+  //     graphData: undefined
+  //   },
+  //   {
+  //     id: '9028723',
+  //     name: 'Sarah Wilson',
+  //     doctorName: 'Dr. Brown',
+  //     date: '22/12/2022',
+  //     tests: [
+  //       { name: 'Test 1', result: 'Positive' }
+  //     ],
+  //     BilanType: 'Bilan sanguin',
+  //     graphData: undefined
+  //   },
+  //   {
+  //     id: '9028724',
+  //     name: 'Michael Davis',
+  //     doctorName: 'Dr. Miller',
+  //     date: '22/12/2022',
+  //     tests: [
+  //       { name: 'Test 1', result: 'Negative' }
+  //     ],
+  //     BilanType: 'Bilan sanguin',
+  //     graphData: undefined
+  //   },
+  // ];
+  ngOnInit() {
+    this.loadBilans();
+  }
 
   loadBilans() {
     this.bilanService.getBilansList().subscribe({
@@ -104,6 +105,14 @@ export class labDashboardComponent  {
       }
     });
   }
+
+  private formatTests(resultat: any): { name: string; result: any }[] {
+    if (!resultat) return [];
+    return Object.entries(resultat).map(([name, result]) => ({
+      name,
+      result
+    }));
+  }
   openPopup(patient: PatientSoin) {
     this.selectedPatient = patient;
     this.isPopupVisible = true;
@@ -112,6 +121,18 @@ export class labDashboardComponent  {
   closePopup() {
     console.log('closed'); // Debug log
     this.isPopupVisible = false;
+  }
+  handleTestUpdate(data: { id: string; results: any }) {
+    this.bilanService.updateBilanResults(Number(data.id), data.results).subscribe({
+      next: () => {
+        this.loadBilans();
+        this.closePopup();
+      },
+      error: (error) => {
+        console.error('Error updating bilan:', error);
+        this.showError('Erreur lors de la mise à jour du bilan.');
+      }
+    });
   }
 
   showError(message: string) {
