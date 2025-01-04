@@ -1,10 +1,10 @@
 <div class="app">
-    
+
 
     <main class="main">
         <div class="card">
             <h1 class="card-title">Patients avec bilans biologique:</h1>
-            
+
             <div class="table-container">
                 <table class="table">
                     <thead>
@@ -18,27 +18,27 @@
                     </thead>
                     <tbody>
                         @for (patient of patients; track patient.id) {
-                            <tr>
-                                <td>{{patient.name}}</td>
-                                <td>{{patient.id}}</td>
-                                <td>{{patient.doctorName}}</td>
-                                <td>{{patient.date}}</td>
-                                <td>
-                                    <button class="edit-button" (click)="openPopup(patient)">
-                                        <svg viewBox="0 0 24 24" class="icon">
-                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
-                                                  stroke="currentColor" fill="none" stroke-width="2"/>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{patient.name}}</td>
+                            <td>{{patient.id}}</td>
+                            <td>{{patient.doctorName}}</td>
+                            <td>{{patient.date}}</td>
+                            <td>
+                                <button class="edit-button" (click)="openPopup(patient)">
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                            stroke="currentColor" fill="none" stroke-width="2" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
                         }
                         @empty {
-                            <tr>
-                                <td colspan="5" class="empty-state">
-                                    Aucun patient n'a besoin de soins pour le moment
-                                </td>
-                            </tr>
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                Aucun patient n'a besoin de soins pour le moment
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -49,10 +49,6 @@
     <!-- Modal Overlay -->
 </div>
 
-<app-bilan-change-popup
-*ngIf="isPopupVisible"
-[isVisible]="isPopupVisible"
-[bilanType]="'biologique'" 
-[bilanData]="selectedPatient"
-(close)="closePopup()">
+<app-bilan-change-popup *ngIf="isPopupVisible" [isVisible]="isPopupVisible" [bilanData]="selectedPatient"
+    (close)="closePopup()">
 </app-bilan-change-popup>

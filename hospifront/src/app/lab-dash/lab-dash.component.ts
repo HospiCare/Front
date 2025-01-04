@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { LoginRoutingService } from '../login-routing.service';
-import { Consultation } from '../consultation';
 import { BilanChangePopupComponent } from '../bilan-change-popup/bilan-change-popup.component';
 import { CommonModule } from '@angular/common'; // Add this import
+import { BilanResponse, BilanService, BilanType } from './bilanService';
 
 
 interface PatientSoin {
@@ -10,7 +10,11 @@ interface PatientSoin {
   name: string;
   doctorName: string;
   date: string;
-  tests?: { name: string; result: string }[]; // Add tests as an optional field
+  BilanType: BilanType;
+  graphData: any;
+
+  tests?: { name: string; result: any }[];
+  originalBilan?: BilanResponse; // Store original bilan data
 }
 
 @Component({
@@ -20,57 +24,87 @@ interface PatientSoin {
   templateUrl: './lab-dash.component.html',
   styleUrl: './lab-dash.component.css'
 })
-export class labDashboardComponent {
-  loginservice : LoginRoutingService = inject(LoginRoutingService);
-  dashboard? : Consultation[] 
-  constructor() {
-    this.dashboard = this.loginservice.getDAta() as Consultation []
-    
-  }
+export class labDashboardComponent  {
+  loginservice: LoginRoutingService = inject(LoginRoutingService);
+  bilanService: BilanService = inject(BilanService);
+  
+  // patients: PatientSoin[] = [];
+  selectedPatient: PatientSoin | null = null;
+  isPopupVisible: boolean = false;
   patients: PatientSoin[] = [
-    { 
-      id: '9028721', 
-      name: 'Brooklyn Simmons', 
-      doctorName: 'Dr. Smith', 
+    {
+      id: '9028721',
+      name: 'Brooklyn Simmons',
+      doctorName: 'Dr. Smith',
       date: '21/12/2022',
       tests: [
-        { name: 'Test 1', result: 'Positive' }, 
+        { name: 'Test 1', result: 'Positive' },
         { name: 'Test 2', result: 'Negative' }
-      ]
+      ],
+      BilanType: 'Bilan sanguin',
+      graphData: undefined
     },
-    { 
-      id: '9028722', 
-      name: 'John Cooper', 
-      doctorName: 'Dr. Johnson', 
+    {
+      id: '9028722',
+      name: 'John Cooper',
+      doctorName: 'Dr. Johnson',
       date: '21/12/2022',
       tests: [
         { name: 'Test 1', result: 'Negative' }
-      ]
+      ],
+      BilanType: 'Bilan sanguin',
+      graphData: undefined
     },
-    { 
-      id: '9028723', 
-      name: 'Sarah Wilson', 
-      doctorName: 'Dr. Brown', 
+    {
+      id: '9028723',
+      name: 'Sarah Wilson',
+      doctorName: 'Dr. Brown',
       date: '22/12/2022',
       tests: [
         { name: 'Test 1', result: 'Positive' }
-      ]
+      ],
+      BilanType: 'Bilan sanguin',
+      graphData: undefined
     },
-    { 
-      id: '9028724', 
-      name: 'Michael Davis', 
-      doctorName: 'Dr. Miller', 
+    {
+      id: '9028724',
+      name: 'Michael Davis',
+      doctorName: 'Dr. Miller',
       date: '22/12/2022',
       tests: [
         { name: 'Test 1', result: 'Negative' }
-      ]
+      ],
+      BilanType: 'Bilan sanguin',
+      graphData: undefined
     },
   ];
+  // ngOnInit() {
+  //   this.loadBilans();
+  // }
 
-  selectedPatient: PatientSoin | null = null;
-  isPopupVisible: boolean = false;
+  loadBilans() {
+    this.bilanService.getBilansList().subscribe({
+      next: (bilans) => {
+        this.patients = bilans.map(bilan => ({
+          id: bilan.id_bilan.toString(),
+          name: `${bilan.patient.nom} ${bilan.patient.prenom}`,
+          doctorName: bilan.medecin?.email || 'Non assigné',
+          date: new Date(bilan.date_creation_consultation).toLocaleDateString(),
+          tests: bilan.type_bilan ? [
+            { name: bilan.type_bilan, result: bilan.resultat }
+          ] : [],
+          BilanType: bilan.type_bilan,
+          graphData: bilan.graphique,
+          originalBilan: bilan
+        }));
+      },
+      error: (error) => {
+        console.error('Error loading bilans:', error);
+        this.showError('Failed to load bilans. Please try again later.');
+      }
+    });
+  }
   openPopup(patient: PatientSoin) {
-    console.log('Opening popup for:', patient); // Debug log
     this.selectedPatient = patient;
     this.isPopupVisible = true;
   }
@@ -78,5 +112,10 @@ export class labDashboardComponent {
   closePopup() {
     console.log('closed'); // Debug log
     this.isPopupVisible = false;
+  }
+
+  showError(message: string) {
+    // Implement your error display logic here, e.g., using a toast notification or an alert
+    alert(message); // Simple alert for demonstration
   }
 }

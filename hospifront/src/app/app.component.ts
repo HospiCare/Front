@@ -12,7 +12,7 @@ import { labDashboardComponent } from "./lab-dash/lab-dash.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoginBoxComponent, RadioDashboardComponent],
+  imports: [RouterModule, LoginBoxComponent, RadioDashboardComponent, labDashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
