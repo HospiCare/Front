@@ -15,17 +15,20 @@
               <div class="header-cell">Résultat</div>
             </div>
             <div class="table-content">
-              <div class="table-row" *ngFor="let test of editableTestResults; let i = index">
-                <div class="cell">{{ test.name }}</div> <!-- Displaying test name -->
-                <div class="cell">
-                  <input
-                    type="text"
-                    [(ngModel)]="test.result"  
-                    class="input-field"
-                    placeholder="Enter result"
-                  />
-                </div> <!-- Editable result -->
+              <div
+              class="table-row"
+              *ngFor="let test of bilanData?.tests; let i = index"
+            >
+              <div class="cell">Test {{ i + 1 }}</div> <!-- Displaying test index -->
+              <div class="cell">
+                <input
+                  type="number"
+                  [(ngModel)]="tests![i]" 
+                  class="input-field"
+                  placeholder="Enter result"
+                />
               </div>
+            </div>
             </div>
           </div>
 

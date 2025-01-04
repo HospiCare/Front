@@ -3,14 +3,15 @@ import { LoginRoutingService } from '../login-routing.service';
 import { Consultation } from '../consultation';
 import { BilanChangePopupComponent } from '../bilan-change-popup/bilan-change-popup.component';
 import { CommonModule } from '@angular/common'; // Add this import
+import { BilanBio } from '../bilan-bio';
 
 
-interface PatientSoin {
+interface Patientbio {
   id: string;
   name: string;
   doctorName: string;
   date: string;
-  tests?: { name: string; result: string }[]; // Add tests as an optional field
+  bilan: BilanBio;
 }
 
 @Component({
@@ -21,19 +22,31 @@ interface PatientSoin {
   styleUrl: './lab-dash.component.css'
 })
 export class labDashboardComponent {
+
   loginservice : LoginRoutingService = inject(LoginRoutingService);
-  dashboard? : Consultation[] 
+  dashboard? :  Consultation[];
   constructor() {
     this.dashboard = this.loginservice.getDAta() as Consultation []
-    
   }
-  patients: PatientSoin[] = [];
+  listDesPatients: Patientbio[] = [{
+    id: '1',
+    name: 'Patient 1',
+    doctorName: 'Dr. A',
+    date: '01/01/2021',
+    bilan: {
+      img: '',
+      tests: [0,0,0,0,0,0,0],
+      type: 'biologique'
+      
+    }
+  },];
 
-  selectedPatient: PatientSoin | null = null;
+
+  selectedPatient: BilanBio | null = null;
   isPopupVisible: boolean = false;
-  openPopup(patient: PatientSoin) {
+  openPopup(patient: Patientbio) {
     console.log('Opening popup for:', patient); // Debug log
-    this.selectedPatient = patient;
+    this.selectedPatient = patient.bilan;
     this.isPopupVisible = true;
   }
   

@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
   selector: 'app-admin-page',
   template: `
     <div id="container">
-      <div class="button" (click)="navigateTo('inf-dashboard')">
+      <div class="button" (click)="navigateTo('lab-dashboard')">
         <img src="./assets/bill.png" alt="bill icon">
         <p class="title"> demandes de facture </p>
       </div>
-      <div class="button grey" (click)="navigateTo('create-dpi')">
+      <div class="button grey" (click)="navigateTo('inf-dashboard')">
         <img src="./assets/addFolder.png" alt="add folder icon">
         <p class="title"> creer DPI </p>
       </div>

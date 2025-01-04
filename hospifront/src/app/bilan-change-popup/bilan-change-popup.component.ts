@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common'; // Import CommonModule
+import { BilanBio } from '../bilan-bio';
 
 @Component({
   selector: 'app-bilan-change-popup',
@@ -11,33 +12,16 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 export class BilanChangePopupComponent {
   @Input() isVisible: boolean = false;
   @Input() bilanType: 'biologique' | 'radiologique' = 'biologique';
-  @Input() bilanData: any;
+  @Input() bilanData?: BilanBio | null;
   @Output() close = new EventEmitter<void>();
+  tests? : number[] = [0,0,0,0,0,0,0];
 
-  editableTestResults: { name: string, result: string }[] = [];
-
-  ngOnChanges() {
-    if (this.bilanData && this.isBilanBio(this.bilanData)) {
-      // Initialize editable test results with name and result
-      this.editableTestResults = this.bilanData.tests.map((test: { name: any; result: any; }) => ({
-        name: test.name,
-        result: test.result
-      }));
+ onClose() {
+    this.bilanData!.tests = [];
+    for (let i = 0; i < this.tests!.length; i++) {
+      this.bilanData?.tests.push(this.tests![i]); 
     }
-  }
-
-  get testResults() {
-    if (this.bilanData && this.isBilanBio(this.bilanData)) {
-      return this.bilanData.tests;
-    }
-    return [];
-  }
-
-  private isBilanBio(bilan: any): boolean {
-    return 'tests' in bilan;
-  }
-
-  onClose() {
+    console.log('Closing popup with data:', this.bilanData); // in backend get this back 
     this.close.emit();
   }
 }
