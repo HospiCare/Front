@@ -169,7 +169,7 @@ export class DPIListComponent implements OnInit {
 
   createDPI(): void {
     // Implement create logic
-    this.router.navigate(['creer-dpi'], {
+    this.router.navigate(['create-dpi'], {
       
     });
     
