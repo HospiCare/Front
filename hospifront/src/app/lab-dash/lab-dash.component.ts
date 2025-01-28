@@ -34,10 +34,10 @@ export class labDashboardComponent {
     doctorName: 'Dr. A',
     date: '01/01/2021',
     bilan: {
-      img: '',
+      img: null,
       tests: [0,0,0,0,0,0,0],
       type: 'biologique'
-      
+
     }
   },];
 
@@ -49,7 +49,7 @@ export class labDashboardComponent {
     this.selectedPatient = patient.bilan;
     this.isPopupVisible = true;
   }
-  
+
   closePopup() {
     console.log('closed'); // Debug log
     this.isPopupVisible = false;

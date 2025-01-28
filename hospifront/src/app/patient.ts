@@ -8,4 +8,6 @@ export interface Patient {
     creationTime: string;
     adresse: String;
     date_naissance: String;
+    mutuelle: string;
+    personneContact: string;
 }

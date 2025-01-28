@@ -1,5 +1,6 @@
 export interface Medicament {
-    nom: string;
-    dose: number;
-    duree: number;
+    name: string;
+    dosage: number;
+    duration: number;
+    frequency: string;
 }

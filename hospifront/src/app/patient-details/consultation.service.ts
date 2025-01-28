@@ -7,7 +7,7 @@ import { Consultation } from '../consultation';
   providedIn: 'root',
 })
 export class ConsultationService {
-  private token = apiClient.auth_token; 
+  private token = apiClient.auth_token;
 
   constructor() {}
 
@@ -20,7 +20,7 @@ export class ConsultationService {
 
     return new Observable<Consultation[]>((observer) => {
       apiClient
-        .get<Consultation[]>(url)
+        .get<Consultation[]>(url, "")
         .then((response) => {
           observer.next(response);
           observer.complete();

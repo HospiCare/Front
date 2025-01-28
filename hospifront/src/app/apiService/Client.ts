@@ -42,9 +42,9 @@ export class ApiServiceClient {
     throw new Error(errorMessage);
   }
 
-  async get<T>(endpoint: string): Promise<T> {
+  async get<T>(endpoint: string, query: string=""): Promise<T> {
     try {
-      const response = await axios.get<T>(`${this.baseUrl}/${endpoint}/`, {
+      const response = await axios.get<T>(`${this.baseUrl}/${endpoint}/?${query}`, {
         headers: this.getHeaders(),
       });
       return response.data;

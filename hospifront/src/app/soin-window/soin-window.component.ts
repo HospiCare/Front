@@ -13,12 +13,12 @@ export class SoinWindowComponent {
   isOrdonnancePopupVisible = false;
   @Input() selectedOrdonnance?: Ordonnance | null ;
   @Input() soins?: Soins | null  // This is the input property for soins
-  
+
   // Initialize array of Soins
 
 
   // Example ordonnance structure
- 
+
 
   showOrdonnanceDetails() {
     this.selectedOrdonnance = this.selectedOrdonnance;
@@ -36,10 +36,10 @@ export class SoinWindowComponent {
         name: soinInput.value.trim(),
         observation: observationInput.value.trim()
       };
-      
+
       // Add to soins array
       this.soins = newSoin;
-      
+
       // Clear inputs after adding
       soinInput.value = '';
       observationInput.value = '';

@@ -31,7 +31,7 @@ this.isLogin = true;
 logout() {
     this.isLogin = false;
 }
-  
+
 
   constructor(private router: Router) {
     this.isLogin = apiClient.isLoggedIn();
@@ -46,12 +46,12 @@ logout() {
 
   }
 
-  
+
  handleLoginSuccess(event: {username : string , role : string , Data : DPI | DPI[] | Consultation[]}) {
     this.userName = event.username;
     switch(event.role){
       case 'patient' :
-      this.patientdpi = event.Data as DPI    //patient
+      this.patientdpi = event.Data as DPI;    //patient
       this.userRole = 'Patient'
       this.loginroute.setData(this.patientdpi);
       this.router.navigate(['patient-dpi/:nss' , this.patientdpi]);

@@ -1,5 +1,5 @@
 export interface BilanBio {
-    img:string;
+    img: File | null;
     tests:number[];
   type: string;
 }

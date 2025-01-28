@@ -33,11 +33,11 @@ export class RadioDashComponent {
         img: null,
         compteRendu: 'compte rendu',
         type: 'IRM'
-        
+
       }
     },];
-  
-  
+
+
     selectedPatient: BilanRadio | null = null;
     isPopupVisible: boolean = false;
     openPopup(patient: PatientbRadio) {
@@ -45,7 +45,7 @@ export class RadioDashComponent {
       this.selectedPatient = patient.bilan;
       this.isPopupVisible = true;
     }
-    
+
     closePopup() {
       console.log('closed'); // Debug log
       this.isPopupVisible = false;
