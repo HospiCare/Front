@@ -14,7 +14,11 @@ export class CreateDpiComponent implements OnInit {
   medecins: UserAccount[] = [];
   isLoading = true;  // To manage loading state
   errorMessage = '';   // To handle errors
-
+  Errormessage? : string 
+  private toNumber(value: any): number {
+    const num = Number(value);
+    return isNaN(num) ? -1 : num; // Default to 0 if invalid
+  }
   ngOnInit(): void {
     const endpoint = 'user/medecins';
 
@@ -60,6 +64,15 @@ export class CreateDpiComponent implements OnInit {
 
     const endpoint = 'dpi_manager/creer_dpi';
     const data = {nom_patient, prenom_patient, email_patient, mot_de_passe, NSS, date_naissance, adresse_patient, telephone_patient, mutuelle, medecin_id, telephone_personne_contact};
+    if (this.toNumber(data.NSS) == -1 || data.NSS === "") {
+      
+      this.Errormessage = 'NSS should be a number'
+    }else{
+     if (this.toNumber(data.telephone_patient) == -1 || data.telephone_patient === "") {
+      this.Errormessage = 'Telephone should be a number.'
+    }else{
+      this.Errormessage = ''
+    }}
 
     try{
       const response = await apiClient.post(endpoint, data);
