@@ -10,7 +10,7 @@ import { BilanRadio } from '../bilan-radio';
 export class BilanDetailsPopupComponent {
   @Input() isVisible: boolean = false;
   @Input() bilanType: 'biologique' | 'radiologique' = 'biologique';
-  @Input() bilanData: BilanBio | BilanRadio | undefined | null;
+  @Input() bilanData: BilanBio | BilanRadio | undefined | null ;
   @Output() close = new EventEmitter<void>();
 
   get testResults() {
