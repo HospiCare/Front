@@ -4,6 +4,7 @@ import { BilanDetailsPopupComponent } from '../bilan-details-popup/bilan-details
 import { Router } from '@angular/router';
 import { Consultation } from '../consultation';
 import { Ordonnance } from '../ordonnance';
+import { apiClient } from '../apiService/Client'; // Adjust the path as needed
 
 @Component({
   selector: 'app-voir-cons',
@@ -13,14 +14,27 @@ import { Ordonnance } from '../ordonnance';
 })
 export class VoirConsComponent {
   consultation?: Consultation;
-   
+  loading: boolean = true;
+
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.consultation = navigation.extras.state['consultation']
+      if (this.consultation != undefined) {
+        apiClient.get<any>(`sgph/${this.consultation.id}/consult`).then(res => {
+          console.log(res)
+          if (res) {
+            if (this.consultation != undefined) {
+              this.consultation.ordonnance = res;
+            }
+          }
+          this.loading = false;
+        })
+      }
     }
-    console.log(this.consultation)  
+    console.log(this.consultation)
   }
+
 
   affiche_validitie(): string {
     return this.consultation?.ordonnance.valide ? "Valide" : "non Valide";
@@ -29,12 +43,12 @@ export class VoirConsComponent {
   isOrdonnancePopupVisible = false;
   isBilanPopupVisible = false;
   selectedBilanType: 'biologique' | 'radiologique' = 'biologique';
-  
+
   // Remove the hardcoded bilanRadiologique
   get bilanRadiologique() {
     return this.consultation?.bilanRadio;
   }
-  
+
   get bilanBiologique()  {
     return this.consultation?.bilanBio
   };

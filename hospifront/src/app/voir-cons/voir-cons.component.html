@@ -19,7 +19,12 @@
       <tbody>
         <tr>
           <td>Ordonnance</td>
-          <td>{{affiche_validitie()}}</td>
+          @if (!loading) {
+            <td>{{affiche_validitie()}}</td>
+          }
+          @if (loading) {
+            <td>loading...</td>
+          }
           <td>
             <button class="icon-button" (click)="showOrdonnanceDetails()">
               <svg viewBox="0 0 24 24" class="eye-icon">
@@ -96,7 +101,7 @@
         </tr>
       </tbody>
     </table>
-  </div> 
+  </div>
 }
 
   <div class="section">

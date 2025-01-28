@@ -151,7 +151,6 @@ export class PatientDetailsComponent implements OnInit {
     this.router.navigate(['voir-cons'], {
       state: {
           consultation: consultation,
-
         }
     });
     // Implement consultation view functionality
