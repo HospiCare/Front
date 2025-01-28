@@ -45,7 +45,7 @@
                         placeholder="Observation"
                         class="input"
                         #observationInput>
-                    <button [disabled]="soins != null"
+                    <button
                         class="button"
                         (click)="addSoin(soinInput, observationInput)">
                         Ajouter
@@ -61,11 +61,12 @@
                     </thead>
                     <tbody>
                         @if( soins != null ) {
+                            @for (soin of soins; track $index) {
                             <tr>
-                                <td>{{soins.name}}</td>
-                                <td>{{soins.observation}}</td>
+                                <td>{{soin.name}}</td>
+                                <td>{{soin.observation}}</td>
                             </tr>
-
+                        }
                         }@else {
                             <tr>
                                 <td colspan="2" class="empty-state">
